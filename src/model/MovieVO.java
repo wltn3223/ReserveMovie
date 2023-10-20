@@ -3,12 +3,12 @@ package model;
 import java.util.Objects;
 
 public class MovieVO {
-	String Movie_title;
-	String Movie_genre;
-	String Movie_runTime;
-	String Movie_director;
-	String Movie_conutry;
-	String Movie_releaseDate;
+	private String Movie_title;
+	private String Movie_genre;
+	private String Movie_runTime;
+	private String Movie_director;
+	private String Movie_conutry;
+	private String Movie_releaseDate;
 	
 	
 	

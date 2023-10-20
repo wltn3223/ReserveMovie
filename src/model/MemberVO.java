@@ -3,11 +3,11 @@ package model;
 import java.util.Objects;
 
 public class MemberVO {
-	String Member_id;
-	String Member_passwd;
-	String Member_name;
-	String Member_PhoneNum;
-	char Member_sex;
+	private String Member_id;
+	private String Member_passwd;
+	private String Member_name;
+	private String Member_PhoneNum;
+	private char Member_sex;
 	
 	public MemberVO(String member_id, String member_passwd, String member_name, String member_PhoneNum,
 			char member_sex) {
