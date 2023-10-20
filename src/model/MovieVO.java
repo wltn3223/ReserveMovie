@@ -3,60 +3,64 @@ package model;
 import java.util.Objects;
 
 public class MovieVO {
-	private String Movie_title;
-	private String Movie_genre;
-	private String Movie_runTime;
-	private String Movie_director;
-	private String Movie_conutry;
-	private String Movie_releaseDate;
+	private String movieTitle;
+	private String movieGenre;
+	private String movieRunTime;
+	private String movieDirector;
+	private String movieConutry;
+	private String movieReleaseDate;
 	
 	
 	
-	public MovieVO(String movie_title, String movie_genre, String movie_runTime, String movie_director,
-			String movie_conutry, String movie_releaseDate) {
+	
+
+
+
+	public MovieVO(String movieTitle, String movieGenre, String movieRunTime, String movieDirector, String movieConutry,
+			String movieReleaseDate) {
 		super();
-		Movie_title = movie_title;
-		Movie_genre = movie_genre;
-		Movie_runTime = movie_runTime;
-		Movie_director = movie_director;
-		Movie_conutry = movie_conutry;
-		Movie_releaseDate = movie_releaseDate;
+		this.movieTitle = movieTitle;
+		this.movieGenre = movieGenre;
+		this.movieRunTime = movieRunTime;
+		this.movieDirector = movieDirector;
+		this.movieConutry = movieConutry;
+		this.movieReleaseDate = movieReleaseDate;
 	}
 
 
 
-	public String getMovie_title() {
-		return Movie_title;
+	public String getMovieTitle() {
+		return movieTitle;
 	}
 
 
 
-	public String getMovie_genre() {
-		return Movie_genre;
+	public String getMovieGenre() {
+		return movieGenre;
 	}
 
 
 
-	public String getMovie_runTime() {
-		return Movie_runTime;
+	public String getMovieRunTime() {
+		return movieRunTime;
 	}
 
 
 
-	public String getMovie_director() {
-		return Movie_director;
+	public String getMovieDirector() {
+		return movieDirector;
 	}
 
 
 
-	public String getMovie_conutry() {
-		return Movie_conutry;
+	public String getMovieConutry() {
+		return movieConutry;
 	}
 
 
 
-	public String getMovie_releaseDate() {
-		return Movie_releaseDate;
+	public String getMovieReleaseDate() {
+		return movieReleaseDate;
 	}
 
 
@@ -64,7 +68,7 @@ public class MovieVO {
 	@Override
 	public int hashCode() {
 		// TODO Auto-generated method stub
-		return Objects.hash(Movie_title);
+		return Objects.hash(movieTitle);
 	}
 
 
@@ -75,7 +79,7 @@ public class MovieVO {
 			return false;
 		}
 		MovieVO other = (MovieVO) obj;
-		return this.Movie_title.equals(other.Movie_title);
+		return this.movieTitle.equals(other.getMovieTitle());
 	}
 	
 	

@@ -3,45 +3,46 @@ package model;
 import java.util.Objects;
 
 public class MemberVO {
-	private String Member_id;
-	private String Member_passwd;
-	private String Member_name;
-	private String Member_PhoneNum;
-	private char Member_sex;
+	private String memberId;
+	private String memberPasswd;
+	private String memberName;
+	private String memberPhoneNum;
 	
-	public MemberVO(String member_id, String member_passwd, String member_name, String member_PhoneNum,
-			char member_sex) {
+	public String getMemberId() {
+		return memberId;
+	}
+
+	public String getMemberPasswd() {
+		return memberPasswd;
+	}
+
+	public String getMemberName() {
+		return memberName;
+	}
+
+	public String getMemberPhoneNum() {
+		return memberPhoneNum;
+	}
+
+	public char getMemberSex() {
+		return memberSex;
+	}
+
+	private char memberSex;
+	
+	
+	public MemberVO(String memberId, String memberPasswd, String memberName, String memberPhoneNum, char memberSex) {
 		super();
-		Member_id = member_id;
-		Member_passwd = member_passwd;
-		Member_name = member_name;
-		Member_PhoneNum = member_PhoneNum;
-		Member_sex = member_sex;
-	}
-
-	public String getMember_id() {
-		return Member_id;
-	}
-
-	public String getMember_passwd() {
-		return Member_passwd;
-	}
-
-	public String getMember_name() {
-		return Member_name;
-	}
-
-	public String getMember_PhoneNum() {
-		return Member_PhoneNum;
-	}
-
-	public char getMember_sex() {
-		return Member_sex;
+		this.memberId = memberId;
+		this.memberPasswd = memberPasswd;
+		this.memberName = memberName;
+		this.memberPhoneNum = memberPhoneNum;
+		this.memberSex = memberSex;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(Member_id);
+		return Objects.hash(memberId);
 	}
 
 	@Override
@@ -50,7 +51,7 @@ public class MemberVO {
 			return false;
 		}
 		MemberVO other = (MemberVO) obj;
-		return  this.Member_id.equals(other.getMember_id());
+		return  this.memberId.equals(other.getMemberId());
 	}
 	
 }
