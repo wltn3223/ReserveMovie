@@ -3,50 +3,79 @@ package model;
 import java.util.Objects;
 
 public class MovieVO {
-	String title;
-	String genre;
-	String runTime;
-	String director;
-	String conutry;
-	String releaseDate;
-	public MovieVO(String title, String genre, String runTime, String director, String conutry, String releaseDate) {
+	String Movie_title;
+	String Movie_genre;
+	String Movie_runTime;
+	String Movie_director;
+	String Movie_conutry;
+	String Movie_releaseDate;
+	
+	
+	
+	public MovieVO(String movie_title, String movie_genre, String movie_runTime, String movie_director,
+			String movie_conutry, String movie_releaseDate) {
 		super();
-		this.title = title;
-		this.genre = genre;
-		this.runTime = runTime;
-		this.director = director;
-		this.conutry = conutry;
-		this.releaseDate = releaseDate;
+		Movie_title = movie_title;
+		Movie_genre = movie_genre;
+		Movie_runTime = movie_runTime;
+		Movie_director = movie_director;
+		Movie_conutry = movie_conutry;
+		Movie_releaseDate = movie_releaseDate;
 	}
-	public String getTitle() {
-		return title;
+
+
+
+	public String getMovie_title() {
+		return Movie_title;
 	}
-	public String getGenre() {
-		return genre;
+
+
+
+	public String getMovie_genre() {
+		return Movie_genre;
 	}
-	public String getRunTime() {
-		return runTime;
+
+
+
+	public String getMovie_runTime() {
+		return Movie_runTime;
 	}
-	public String getDirector() {
-		return director;
+
+
+
+	public String getMovie_director() {
+		return Movie_director;
 	}
-	public String getConutry() {
-		return conutry;
+
+
+
+	public String getMovie_conutry() {
+		return Movie_conutry;
 	}
-	public String getReleaseDate() {
-		return releaseDate;
+
+
+
+	public String getMovie_releaseDate() {
+		return Movie_releaseDate;
 	}
+
+
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(conutry, director, genre, releaseDate, runTime, title);
+		// TODO Auto-generated method stub
+		return Objects.hash(Movie_title);
 	}
+
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if(!(obj instanceof MovieVO)) {
 			return false;
 		}
 		MovieVO other = (MovieVO) obj;
-		return this.title.equals(other.title);
+		return this.Movie_title.equals(other.Movie_title);
 	}
 	
 	
