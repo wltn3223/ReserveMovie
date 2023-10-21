@@ -22,11 +22,10 @@ public class DBUtil {
             String passwd = properties.getProperty("passwd");
             Class.forName(driver);
             con = DriverManager.getConnection(url,name,passwd);
-            System.out.println("적재성공");
+
 
 
         } catch (Exception e) {
-            System.out.println("실패");
         }
         return con;
 
