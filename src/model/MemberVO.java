@@ -50,7 +50,7 @@ public class MemberVO {
             return false;
         }
         MemberVO memberVO = (MemberVO) obj;
-        return this.iD.equals(memberVO.iD);
+        return this.iD.equals(memberVO.getiD());
     }
 
     @Override
