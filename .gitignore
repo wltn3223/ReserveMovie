@@ -156,6 +156,8 @@ cmake-build-*/
 
 # IntelliJ
 out/
+.idea
+ReserveMovie.iml
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/

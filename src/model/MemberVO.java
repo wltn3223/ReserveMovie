@@ -1,57 +1,72 @@
 package model;
 
+import java.lang.reflect.Member;
 import java.util.Objects;
 
 public class MemberVO {
-	private String memberId;
-	private String memberPasswd;
-	private String memberName;
-	private String memberPhoneNum;
-	
-	public String getMemberId() {
-		return memberId;
-	}
+    private  String iD;
+    private String passwd;
+    private String name;
+    private String phoneNum;
+    private String email;
+    private char sex;
 
-	public String getMemberPasswd() {
-		return memberPasswd;
-	}
+    public MemberVO(String iD, String passwd, String name, String phoneNum, String email, char sex) {
+        this.iD = iD;
+        this.passwd = passwd;
+        this.name = name;
+        this.phoneNum = phoneNum;
+        this.email = email;
+        this.sex = sex;
+    }
 
-	public String getMemberName() {
-		return memberName;
-	}
+    public String getiD() {
+        return iD;
+    }
 
-	public String getMemberPhoneNum() {
-		return memberPhoneNum;
-	}
+    public String getPasswd() {
+        return passwd;
+    }
 
-	public char getMemberSex() {
-		return memberSex;
-	}
+    public String getName() {
+        return name;
+    }
 
-	private char memberSex;
-	
-	
-	public MemberVO(String memberId, String memberPasswd, String memberName, String memberPhoneNum, char memberSex) {
-		super();
-		this.memberId = memberId;
-		this.memberPasswd = memberPasswd;
-		this.memberName = memberName;
-		this.memberPhoneNum = memberPhoneNum;
-		this.memberSex = memberSex;
-	}
+    public String getPhoneNum() {
+        return phoneNum;
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(memberId);
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if(!(obj instanceof MovieVO)){
-			return false;
-		}
-		MemberVO other = (MemberVO) obj;
-		return  this.memberId.equals(other.getMemberId());
-	}
-	
+    public char getSex() {
+        return sex;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof Member)){
+            return false;
+        }
+        MemberVO memberVO = (MemberVO) obj;
+        return this.iD.equals(memberVO.iD);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(iD);
+    }
+
+    @Override
+    public String toString() {
+        return "MemberVO{" +
+                "iD='" + iD + '\'' +
+                ", passwd='" + passwd + '\'' +
+                ", name='" + name + '\'' +
+                ", phoneNum='" + phoneNum + '\'' +
+                ", email='" + email + '\'' +
+                ", sex=" + sex +
+                '}';
+    }
 }
