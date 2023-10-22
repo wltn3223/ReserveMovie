@@ -6,6 +6,7 @@ import model.MovieVO;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class adminService {
     private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -130,7 +131,8 @@ public class adminService {
 
     public void printMovie() throws Exception {
         System.out.println("현재 상영중인 영화 목록");
-        movieDao.movieList();
+        movieDao.selectMovieList().stream().forEach(System.out::println);
+
     }
 
 

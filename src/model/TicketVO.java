@@ -4,26 +4,36 @@ import java.util.Objects;
 
 public class TicketVO {
     private String memberId;
-    private int ticketNO;
+    private int ticketNo;
     private int cinemaId;
     private String movieTitle;
-    private String seatNum;
-    final private int seatPrice = 12000;
+    private int seatNum;
+    final private int seatPrice;
 
-    public TicketVO(String memberId, int ticketNO, int cinemaId, String movieTitle, String seatNum) {
+    public TicketVO(String memberId, int cinemaId, String movieTitle, int seatNum) {
         this.memberId = memberId;
-        this.ticketNO = ticketNO;
         this.cinemaId = cinemaId;
         this.movieTitle = movieTitle;
         this.seatNum = seatNum;
+        this.seatPrice = 12000;
+    }
+
+
+    public TicketVO(String memberId, int ticketNo, int cinemaId, String movieTitle, int seatNum, int seatPrice) {
+        this.memberId = memberId;
+        this.ticketNo = ticketNo;
+        this.cinemaId = cinemaId;
+        this.movieTitle = movieTitle;
+        this.seatNum = seatNum;
+        this.seatPrice = 12000;
     }
 
     public String getMemberId() {
         return memberId;
     }
 
-    public int getTicketNO() {
-        return ticketNO;
+    public int getTicketNo() {
+        return ticketNo;
     }
 
     public int getCinemaId() {
@@ -34,7 +44,7 @@ public class TicketVO {
         return movieTitle;
     }
 
-    public String getSeatNum() {
+    public int getSeatNum() {
         return seatNum;
     }
 
@@ -48,11 +58,11 @@ public class TicketVO {
             return false;
         }
         TicketVO ticketVO = (TicketVO) o;
-        return ticketNO == ticketVO.ticketNO;
+        return ticketNo == ticketVO.ticketNo && seatNum == ticketVO.seatNum;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ticketNO);
+        return Objects.hash(ticketNo);
     }
 }

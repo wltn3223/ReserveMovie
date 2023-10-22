@@ -67,11 +67,12 @@ public class MemberDao {
 
         } catch (Exception e) {
             System.out.println("회원찾기 sql 에러");
-        }
-                con.close();
-                pstmt.close();
-                rs.close();
+        }finally {
+            con.close();
+            pstmt.close();
+            rs.close();
 
+        }
         return memberDTO;
     }
 
@@ -94,9 +95,11 @@ public class MemberDao {
             }
         } catch (Exception e) {
             System.out.println("회원 삽입 sql오류발생");
+        }finally {
+            con.close();
+            pstmt.close();
+
         }
-                con.close();
-                pstmt.close();
     }
 
     // 계정삭제 id로
@@ -115,9 +118,11 @@ public class MemberDao {
             }
         } catch (Exception e) {
             System.out.println("회원 삭제 sql에러발생");
+        }finally {
+            con.close();
+            pstmt.close();
+
         }
-                con.close();
-                pstmt.close();
 
     }
 
@@ -140,13 +145,8 @@ public class MemberDao {
         } catch (Exception e) {
             System.out.println("회원 정보 수정 sql 오류 발생");
         } finally {
-            try {
                 con.close();
                 pstmt.close();
-
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
         }
     }
 
@@ -166,9 +166,11 @@ public class MemberDao {
 
         } catch (Exception e) {
             System.out.println("회원 id 중복 찾기 sql 에러발생");
+        }finally {
+            con.close();
+            pstmt.close();
+
         }
-                con.close();
-                pstmt.close();
 
         return findFlag;
     }
@@ -189,10 +191,10 @@ public class MemberDao {
 
         } catch (Exception e) {
             System.out.println("이메일 중복 sql 에러발생");
+        }finally {
+            con.close();
+            pstmt.close();
         }
-                con.close();
-                pstmt.close();
-
         return findFlag;
     }
 
@@ -212,9 +214,11 @@ public class MemberDao {
 
         } catch (Exception e) {
             System.out.println("폰 중복 찾기 sql 에러발생");
+        }finally {
+            con.close();
+            pstmt.close();
+
         }
-                con.close();
-                pstmt.close();
 
         return findFlag;
     }

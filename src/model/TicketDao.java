@@ -1,0 +1,121 @@
+package model;
+
+import Controller.DBUtil;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class TicketDao {
+    public void insertTicket(TicketVO ticketVO) throws  Exception{
+        Connection con;
+        con = DBUtil.getConnection();
+
+        PreparedStatement pstmt = null;
+        String query = "insert into ticket values(?,ticket_seq.nextval,?,?,?,?)";
+        try {
+            pstmt = con.prepareStatement(query);
+            pstmt.setString(1,ticketVO.getMemberId());
+            pstmt.setInt(2,ticketVO.getCinemaId());
+            pstmt.setString(3,ticketVO.getMovieTitle());
+            pstmt.setInt(4,ticketVO.getSeatNum());
+            pstmt.setInt(5,ticketVO.getSeatPrice());
+            int i = pstmt.executeUpdate();
+            System.out.println(i !=0 ? "추가 성공":"추가 실패");
+
+        }catch (SQLException e){
+            System.out.println("영화 예매 오류 발생");
+        }finally {
+            con.close();
+            pstmt.close();
+
+        }
+    }
+    public void deleteTicket(int ticketNo) throws  Exception{
+        Connection con;
+        con = DBUtil.getConnection();
+        PreparedStatement pstmt = null;
+        TicketVO ticketVO = findTicket(ticketNo);
+        if (ticketVO== null){
+            System.out.println("잘못된 예매 번호 입니다.");
+            return;
+        }
+        try {
+            String query = "delete from ticket where TICKET_NO = ? ";
+            pstmt = con.prepareStatement(query);
+            pstmt.setInt(1,ticketVO.getTicketNo());
+            int i = pstmt.executeUpdate();
+            System.out.println(i !=0 ? "예매 취소 성공":"예매 취소 실패");
+
+        }catch (SQLException e){
+            System.out.println("예매 취소 오류 발생");
+        }finally {
+            con.close();
+            pstmt.close();
+
+        }
+    }
+    public void updateTicket(int ticketNo,int seatNum) throws  Exception{
+        Connection con;
+        con = DBUtil.getConnection();
+        TicketVO ticketVO = findTicket(ticketNo);
+        if (ticketVO == null){
+            System.out.println("예매 번호를 잘못 입력하셨습니다.");
+            return;
+        }
+        PreparedStatement pstmt = null;
+        String query = "update ticket set values(?,?,?,?,?,?)";
+        try {
+            pstmt = con.prepareStatement(query);
+            pstmt.setString(1,ticketVO.getMemberId());
+            pstmt.setInt(2,ticketVO.getTicketNo());
+            pstmt.setInt(3,ticketVO.getCinemaId());
+            pstmt.setString(3,ticketVO.getMovieTitle());
+            pstmt.setInt(5,seatNum);
+            pstmt.setInt(6,ticketVO.getSeatPrice());
+            int i = pstmt.executeUpdate();
+            System.out.println(i !=0 ? "수정 성공":"수정 실패");
+
+        }catch (SQLException e){
+            System.out.println("좌석 변경 오류 발생");
+        }finally {
+            con.close();
+            pstmt.close();
+
+        }
+
+    }
+    public TicketVO findTicket(int ticketNo) throws  Exception{
+        Connection con;
+        con = DBUtil.getConnection();
+        ResultSet rs = null;
+        TicketVO ticketVO = null;
+        PreparedStatement pstmt = null;
+        try {
+            String query = "select * from ticket where TICKET_NO = ?";
+            pstmt = con.prepareStatement(query);
+            pstmt.setInt(1,ticketNo);
+            rs = pstmt.executeQuery();
+            while (rs.next()){
+                String memberId = rs.getString("MEMBER_ID");
+                int cinemaNo = rs.getInt("TICKET_NO");
+                int cinemaId = rs.getInt("C_ID");
+                String movieTitle = rs.getString("MOVIE_TITLE");
+                int seatNum =  rs.getInt("TICKET_SEATS_NUM");
+                int seatPrice =  rs.getInt("TICKET_PRICE");
+                ticketVO = new TicketVO(memberId,cinemaNo,cinemaId,movieTitle,seatNum,seatPrice);
+            }
+
+        }catch (SQLException e){
+            System.out.println("예매 내역 조회 오류 발생");
+            return null;
+        }finally {
+            con.close();
+            pstmt.close();
+            rs.close();
+
+        }
+        return ticketVO;
+    }
+}

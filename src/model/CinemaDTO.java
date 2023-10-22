@@ -12,12 +12,21 @@ public class CinemaDTO {
     private String startTime;
     private String finishTime;
 
+    public CinemaDTO(int cinemaNo, String movieTitle, int totalSeats, int remainSeats, String startTime, String finishTime) {
+        this.cinemaNo = cinemaNo;
+        this.movieTitle = movieTitle;
+        this.totalSeats = totalSeats;
+        this.remainSeats = remainSeats;
+        this.startTime = startTime;
+        this.finishTime = finishTime;
+    }
+
     public CinemaDTO(int cinemaID, int cinemaNo, String movieTitle, int totalSeats, int remainSeats, String startTime, String finishTime) {
         this.cinemaID = cinemaID;
         this.cinemaNo = cinemaNo;
         this.movieTitle = movieTitle;
         this.totalSeats = totalSeats;
-        this.totalSeats= remainSeats;
+        this.remainSeats= remainSeats;
         this.startTime = startTime;
         this.finishTime = finishTime;
     }
@@ -60,11 +69,24 @@ public class CinemaDTO {
             return false;
         }
         CinemaDTO cinema = (CinemaDTO) obj;
-        return cinemaID == cinema.cinemaID;
+        return cinemaID == cinema.getCinemaID();
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(cinemaID);
+    }
+
+    @Override
+    public String toString() {
+        return "CinemaDTO{" +
+                "cinemaID=" + cinemaID +
+                ", cinemaNo=" + cinemaNo +
+                ", movieTitle='" + movieTitle + '\'' +
+                ", totalSeats=" + totalSeats +
+                ", remainSeats=" + remainSeats +
+                ", startTime='" + startTime + '\'' +
+                ", finishTime='" + finishTime + '\'' +
+                '}';
     }
 }

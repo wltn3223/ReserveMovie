@@ -14,27 +14,54 @@ public class CinemaDao {
         con = DBUtil.getConnection();
 
         PreparedStatement pstmt = null;
-        String query = "insert into cinema values(?,?,?,?,?,?,?)";
+        String query = "insert into cinema values(cinema_seq.nextval,?,?,?,?,?,?)";
         try {
             pstmt = con.prepareStatement(query);
-            pstmt.setInt(1,cinemaDTO.getCinemaID());
-            pstmt.setInt(2, cinemaDTO.getCinemaNo());
-            pstmt.setString(3, cinemaDTO.getMovieTitle());
-            pstmt.setInt(4, cinemaDTO.getTotalSeats());
-            pstmt.setInt(5, cinemaDTO.getRemainSeats());
-            pstmt.setString(6, cinemaDTO.getStartTime());
-            pstmt.setString(7, cinemaDTO.getFinishTime());
+            pstmt.setInt(1, cinemaDTO.getCinemaNo());
+            pstmt.setString(2, cinemaDTO.getMovieTitle());
+            pstmt.setInt(3, cinemaDTO.getTotalSeats());
+            pstmt.setInt(4, cinemaDTO.getRemainSeats());
+            pstmt.setString(5, cinemaDTO.getStartTime());
+            pstmt.setString(6, cinemaDTO.getFinishTime());
             int i = pstmt.executeUpdate();
-            System.out.println(i !=0 ? "추가 성공":"추가 실패");
+            System.out.println(i !=0 ? "상영관추가 성공":"상영관추가 실패");
 
         }catch (SQLException e){
-            System.out.println("상영관 추가 오류 발생");
+            System.out.println(e);
         }finally {
             con.close();
             pstmt.close();
         }
     }
-    public void updateCinema(){}
+    public void updateCinema(int cinemaId, CinemaDTO cinema) throws Exception{
+        CinemaDTO cinemaDTO = cinema;
+        Connection con;
+        con = DBUtil.getConnection();
+        PreparedStatement pstmt = null;
+        String query = "update cinema set C_NO = ?, MOVIE_TITLE = ?, C_TOTAL_SEATS  = ?, C_REMAIN_SEATS = ?,  C_START_TIME = ?, C_FINISH_TIME  =?" +
+                "where C_ID = ?";
+        try {
+            pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, cinemaDTO.getCinemaNo());
+            pstmt.setString(2, cinemaDTO.getMovieTitle());
+            pstmt.setInt(3, cinemaDTO.getTotalSeats());
+            pstmt.setInt(4, cinemaDTO.getRemainSeats());
+            pstmt.setString(5, cinemaDTO.getStartTime());
+            pstmt.setString(6, cinemaDTO.getFinishTime());
+            pstmt.setInt(7, cinemaId);
+            int i = pstmt.executeUpdate();
+            System.out.println(i !=0 ? "수정 성공":"수정 실패");
+
+        }catch (SQLException e){
+            System.out.println("상영관 정보 수정 오류 발생");
+        }finally {
+
+            con.close();
+            pstmt.close();
+        }
+
+
+    }
     public ArrayList<CinemaDTO> selectCinemaList() throws  Exception{
         ArrayList<CinemaDTO> cinemaDTOArrayList = new ArrayList<>();
         Connection con;
@@ -119,7 +146,7 @@ public class CinemaDao {
             }
 
         }catch (SQLException e){
-            System.out.println("상영관 조회 오류 발생");
+            System.out.println("특정 상영관 조회 오류 발생");
             return null;
         }finally {
             con.close();
