@@ -12,6 +12,10 @@ public class Mainview {
         return br.readLine();
 
     }
+    public static String getUserMenu() throws  Exception{
+        System.out.println("1. 영화 예매 내역 확인 2. 영화 예매 3. 영화 예매 취소 4. 좌석 변경 0. 종료");
+        return br.readLine();
+    }
 
 
 }
