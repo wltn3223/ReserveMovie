@@ -12,6 +12,7 @@ public class MovieDao {
     public void insertMovie(MovieVO movieVO) throws Exception{
         Connection con;
         con = DBUtil.getConnection();
+
         PreparedStatement pstmt = null;
         String query = "insert into movie values(?,?,?,?,?,?)";
         try {
@@ -26,14 +27,14 @@ public class MovieDao {
         System.out.println(i !=0 ? "추가 성공":"추가 실패");
 
         }catch (SQLException e){
-            System.out.println("영화 삽입 오류 발생");
+            System.out.println("영화 추가 오류 발생");
         }finally {
         con.close();
         pstmt.close();
 
         }
     }
-    public ArrayList<MovieVO> movieList() throws Exception{
+    public ArrayList<MovieVO> selectMovieList() throws Exception{
         ArrayList<MovieVO> movieVOArrayList = new ArrayList<>();
         Connection con;
         con = DBUtil.getConnection();

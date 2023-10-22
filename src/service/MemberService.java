@@ -92,8 +92,8 @@ public class MemberService {
 
     public void updatepassword() throws Exception {
         System.out.println("비밀번호 변경메뉴입니다.");
-        String password = null;
-        MemberDTO memberDTO = null;
+        String password;
+        MemberDTO memberDTO;
 
         while (true) {
             memberDTO = login();
@@ -128,6 +128,7 @@ public class MemberService {
         for (int i =0; i<list.size();i++){
             if (list.get(i).isEmpty()){
                 blankflag = true;
+                break;
             }
         }
         return blankflag;

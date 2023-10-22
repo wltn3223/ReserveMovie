@@ -1,16 +1,16 @@
 package service;
 
 
-import model.MemberDao;
 import model.MovieDao;
 import model.MovieVO;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-public class adminMovieService {
+public class adminService {
     private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     private static final MovieDao movieDao = new MovieDao();
+
 
     public void insertMovie() throws Exception {
         String title;

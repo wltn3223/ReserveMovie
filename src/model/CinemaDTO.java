@@ -2,22 +2,22 @@ package model;
 
 import java.util.Objects;
 
-public class CinemaVO {
+public class CinemaDTO {
     private int cinemaID;
 
     private int cinemaNo;
-    private String moiveTitle;
+    private String movieTitle;
     private int totalSeats;
     private int remainSeats;
     private String startTime;
     private String finishTime;
 
-    public CinemaVO(int cinemaID, int cinemaNo, String moiveTitle, int totalSeats, int remainSeats, String startTime, String finishTime) {
+    public CinemaDTO(int cinemaID, int cinemaNo, String movieTitle, int totalSeats, int remainSeats, String startTime, String finishTime) {
         this.cinemaID = cinemaID;
         this.cinemaNo = cinemaNo;
-        this.moiveTitle = moiveTitle;
+        this.movieTitle = movieTitle;
         this.totalSeats = totalSeats;
-        this.remainSeats = remainSeats;
+        this.totalSeats= remainSeats;
         this.startTime = startTime;
         this.finishTime = finishTime;
     }
@@ -30,8 +30,8 @@ public class CinemaVO {
         return cinemaNo;
     }
 
-    public String getMoiveTitle() {
-        return moiveTitle;
+    public String getMovieTitle() {
+        return movieTitle;
     }
 
     public int getTotalSeats() {
@@ -56,10 +56,10 @@ public class CinemaVO {
 
     @Override
     public boolean equals(Object obj) {
-        if(!(obj instanceof CinemaVO)){
+        if(!(obj instanceof CinemaDTO)){
             return false;
         }
-        CinemaVO cinema = (CinemaVO) obj;
+        CinemaDTO cinema = (CinemaDTO) obj;
         return cinemaID == cinema.cinemaID;
     }
 

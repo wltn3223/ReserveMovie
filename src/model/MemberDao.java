@@ -9,12 +9,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class MemberDao {
-    public ArrayList<MemberDTO> MemberList() {
+    public ArrayList<MemberDTO> selectMemberList() throws Exception {
         ArrayList<MemberDTO> memberDTOArrayList = new ArrayList<>();
         Connection con = DBUtil.getConnection();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        MemberDTO memberDTO = null;
+        MemberDTO memberDTO;
         try {
             String query = "Select * from member";
             pstmt = con.prepareStatement(query);
@@ -31,23 +31,20 @@ public class MemberDao {
             }
 
         } catch (Exception e) {
-            System.out.println("잘못된 형식을 입력하셨습니다. 다시 시도해주세요");
+            System.out.println("회원 목록 sql 에러발생");
             return memberDTOArrayList;
         } finally {
-            try {
                 con.close();
                 pstmt.close();
                 rs.close();
 
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+
         }
         return memberDTOArrayList;
     }
 
     // id를 통해 멤버 찾음
-    public MemberDTO findMember(String memberId) {
+    public MemberDTO findMember(String memberId) throws Exception {
         Connection con = DBUtil.getConnection();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -69,24 +66,17 @@ public class MemberDao {
             memberDTO = new MemberDTO(id, passwd, name, phoneNum, email, sex);
 
         } catch (Exception e) {
-            System.out.println("회원찾기 에러");
-        } finally {
-            try {
+            System.out.println("회원찾기 sql 에러");
+        }
                 con.close();
                 pstmt.close();
                 rs.close();
-
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
 
         return memberDTO;
     }
 
     // 회원가입시 멤버정보 table에 추가
-    public void insertMember(MemberDTO memberDTO) {
+    public void insertMember(MemberDTO memberDTO)  throws  Exception{
         Connection con = DBUtil.getConnection();
         PreparedStatement pstmt = null;
         try {
@@ -100,23 +90,17 @@ public class MemberDao {
             pstmt.setString(6, String.valueOf(memberDTO.getSex()));
             int count = pstmt.executeUpdate();
             if (count != 1) {
-                System.out.println("회원 정보 저장 오류 발생");
+                System.out.println("회원 정보 저장 실패");
             }
         } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
+            System.out.println("회원 삽입 sql오류발생");
+        }
                 con.close();
                 pstmt.close();
-
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
     }
 
     // 계정삭제 id로
-    public void deleteMember(String memberid) {
+    public void deleteMember(String memberid) throws  Exception {
         Connection con = DBUtil.getConnection();
         PreparedStatement pstmt = null;
 
@@ -130,19 +114,14 @@ public class MemberDao {
                 System.out.println("회원 정보 삭제 실패");
             }
         } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
+            System.out.println("회원 삭제 sql에러발생");
+        }
                 con.close();
                 pstmt.close();
 
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
     }
 
-    public void updateMember(MemberDTO memberDTO) {
+    public void updateMember(MemberDTO memberDTO) throws  Exception {
         Connection con = DBUtil.getConnection();
         PreparedStatement pstmt = null;
         try {
@@ -156,10 +135,10 @@ public class MemberDao {
             pstmt.setString(6, String.valueOf(memberDTO.getSex()));
             int count = pstmt.executeUpdate();
             if (count != 1) {
-                System.out.println("회원 정보 수정 오류 발생");
+                System.out.println("회원 정보 수정 실패");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("회원 정보 수정 sql 오류 발생");
         } finally {
             try {
                 con.close();
@@ -172,7 +151,7 @@ public class MemberDao {
     }
 
     // 아이디 번호 중복 여부
-    public boolean findID(String memberId) {
+    public boolean findID(String memberId) throws  Exception{
         Connection con = DBUtil.getConnection();
         PreparedStatement pstmt = null;
         boolean findFlag = false;
@@ -186,21 +165,16 @@ public class MemberDao {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
+            System.out.println("회원 id 중복 찾기 sql 에러발생");
+        }
                 con.close();
                 pstmt.close();
 
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
         return findFlag;
     }
 
     // 이메일 번호 중복 여부
-    public boolean findEmail(String email) {
+    public boolean findEmail(String email) throws  Exception {
         Connection con = DBUtil.getConnection();
         PreparedStatement pstmt = null;
         boolean findFlag = false;
@@ -214,21 +188,16 @@ public class MemberDao {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
+            System.out.println("이메일 중복 sql 에러발생");
+        }
                 con.close();
                 pstmt.close();
 
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
         return findFlag;
     }
 
     // 스마트폰 번호 중복 여부
-    public boolean findPhone(String phoneNum) {
+    public boolean findPhone(String phoneNum) throws  Exception{
         Connection con = DBUtil.getConnection();
         PreparedStatement pstmt = null;
         boolean findFlag = false;
@@ -242,16 +211,11 @@ public class MemberDao {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
+            System.out.println("폰 중복 찾기 sql 에러발생");
+        }
                 con.close();
                 pstmt.close();
 
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
         return findFlag;
     }
 }
