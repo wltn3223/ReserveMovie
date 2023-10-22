@@ -20,19 +20,19 @@ public class MainController {
                         System.out.println("종료합니다.");
                         return;
                     case "1":
-                        member = login();
+//                        member = login();
                         if (member != null) {
                             flag = true;
                         }
                         break;
                     case "2":
-                        join();
+//                        join();
                         break;
                     case "3":
-                        updatepassword();
+//                        updatepassword();
                         break;
                     case "4":
-                        resignation();
+//                        resignation();
                         break;
                     default:
                         System.out.println("잘못된 값을 입력하셨습니다.");
