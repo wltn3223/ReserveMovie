@@ -7,18 +7,18 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class AdminCinemaService {
-    private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    private static final CinemaDao cinemaDao = new CinemaDao();
+    private final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    private final CinemaDao cinemaDao = new CinemaDao();
 
     public void addCinema() throws Exception {
-        System.out.println("추가할 상영관 좌석 수 입력(최대 50)");
+        System.out.println("추가할 상영관 좌석 수 입력(최대 50,최소 20)");
         String data = br.readLine().trim();
         int seats = 0;
         try {
 
             seats = Integer.parseInt(data);
-            if (seats >= 50 || seats < 0) {
-                System.out.println("0~50사이의 숫자를 입력해주세요 다시 시도해주세요");
+            if (seats >= 50 || seats < 20) {
+                System.out.println("20~50사이의 숫자를 입력해주세요 다시 시도해주세요");
                 return;
             }
 
@@ -77,6 +77,10 @@ public class AdminCinemaService {
         } else {
             cinemaDao.selectCinemaList().stream().forEach(System.out::println);
         }
+    }
+    public CinemaVO findCinema(int cinemaNo) throws  Exception{
+        CinemaVO cinema = cinemaDao.findCinema(cinemaNo);
+        return cinema;
     }
 
 }

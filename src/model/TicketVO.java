@@ -3,20 +3,27 @@ package model;
 import java.util.Objects;
 
 public class TicketVO {
+    private String memberId;
     private int ticketNo;
     private int playingMovieNo;
     private int seatNo;
     private static final int ticketPrice = 12000;
 
-    public TicketVO(int ticketNo, int playingMovieNo, int seatNo) {
+    public TicketVO(String memberId,int ticketNo, int playingMovieNo, int seatNo) {
+        this.memberId = memberId;
         this.ticketNo = ticketNo;
         this.playingMovieNo = playingMovieNo;
         this.seatNo = seatNo;
     }
 
-    public TicketVO(int playingMovieNo, int seatNo) {
+    public TicketVO(String memberId,int playingMovieNo, int seatNo) {
+        this.memberId = memberId;
         this.playingMovieNo = playingMovieNo;
         this.seatNo = seatNo;
+    }
+
+    public String getMemberId() {
+        return memberId;
     }
 
     public int getTicketNo() {
@@ -41,11 +48,20 @@ public class TicketVO {
             return false;
         }
         TicketVO ticketVO = (TicketVO) o;
-        return ticketNo == ticketVO.ticketNo;
+        return ticketNo == ticketVO.getTicketNo() && memberId.equals(ticketVO.getMemberId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ticketNo);
+        return Objects.hash(ticketNo,memberId);
+    }
+
+    @Override
+    public String toString() {
+        return "TicketVO{" +
+                "ticketNo=" + ticketNo +
+                ", playingMovieNo=" + playingMovieNo +
+                ", seatNo=" + seatNo +
+                '}';
     }
 }

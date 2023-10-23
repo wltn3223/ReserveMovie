@@ -109,7 +109,7 @@ public class CinemaDao {
             System.out.println("상영관 삭제 성공");
 
         }catch (SQLException e){
-            System.out.println("상영관 삭제 오류 발생");
+            e.printStackTrace();
         }finally {
             con.close();
             pstmt.close();

@@ -8,8 +8,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class MemberloginService {
-    private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    private static final MemberDao memberDao = new MemberDao();
+    private final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    private final MemberDao memberDao = new MemberDao();
 
     public MemberVO login() throws Exception {
         System.out.println("로그인 메뉴 입니다.");

@@ -102,10 +102,6 @@ public class MemberDao {
 
     // 계정삭제 id로
     public void deleteMember(String memberid) throws  Exception {
-        if (findMember(memberid) == null){
-            System.out.println("없는 id입니다.");
-            return;
-        }
         Connection con = DBUtil.getConnection();
         PreparedStatement pstmt = null;
 
@@ -132,10 +128,6 @@ public class MemberDao {
     }
 
     public void updateMember(String id,String password) throws  Exception {
-        if (findMember(id) == null){
-            System.out.println("없는 id입니다.");
-            return;
-        }
         Connection con = DBUtil.getConnection();
         PreparedStatement pstmt = null;
         try {

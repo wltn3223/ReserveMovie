@@ -9,8 +9,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class AdminMovieService {
-    private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    private static final MovieDao movieDao = new MovieDao();
+    private final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    private final MovieDao movieDao = new MovieDao();
 
 
     public void insertMovie() throws Exception {

@@ -57,4 +57,15 @@ public class PlayingMovieVO {
     public int hashCode() {
         return Objects.hash(playingMovieNo);
     }
+
+    @Override
+    public String toString() {
+        return "PlayingMovieVO{" +
+                "movieTitle='" + movieTitle + '\'' +
+                ", cinemaNo=" + cinemaNo +
+                ", playingMovieNo=" + playingMovieNo +
+                ", startTime='" + startTime + '\'' +
+                ", finishTime='" + finishTime + '\'' +
+                '}';
+    }
 }
