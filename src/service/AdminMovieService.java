@@ -7,9 +7,8 @@ import model.MovieVO;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Objects;
 
-public class adminService {
+public class AdminMovieService {
     private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     private static final MovieDao movieDao = new MovieDao();
 

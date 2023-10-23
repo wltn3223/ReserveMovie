@@ -2,14 +2,14 @@ package model;
 
 import java.util.Objects;
 
-public class PlayingMovie {
+public class PlayingMovieVO {
     private String movieTitle;
     private int cinemaNo;
     private int playingMovieNo;
     private String startTime;
     private String finishTime;
 
-    public PlayingMovie(String movieTitle, int cinemaNo, int playingMovieNo, String startTime, String finishTime) {
+    public PlayingMovieVO(String movieTitle, int cinemaNo, int playingMovieNo, String startTime, String finishTime) {
         this.movieTitle = movieTitle;
         this.cinemaNo = cinemaNo;
         this.playingMovieNo = playingMovieNo;
@@ -17,7 +17,7 @@ public class PlayingMovie {
         this.finishTime = finishTime;
     }
 
-    public PlayingMovie(String movieTitle, int cinemaNo, String startTime, String finishTime) {
+    public PlayingMovieVO(String movieTitle, int cinemaNo, String startTime, String finishTime) {
         this.movieTitle = movieTitle;
         this.cinemaNo = cinemaNo;
         this.startTime = startTime;
@@ -46,10 +46,10 @@ public class PlayingMovie {
 
     @Override
     public boolean equals(Object o) {
-        if(!(o instanceof PlayingMovie)){
+        if(!(o instanceof PlayingMovieVO)){
             return false;
         }
-        PlayingMovie pmn = (PlayingMovie) o;
+        PlayingMovieVO pmn = (PlayingMovieVO) o;
         return this.playingMovieNo == pmn.getPlayingMovieNo();
     }
 
