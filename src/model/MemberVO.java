@@ -3,7 +3,7 @@ package model;
 import java.lang.reflect.Member;
 import java.util.Objects;
 
-public class MemberDTO {
+public class MemberVO {
     private  String iD;
     private String passwd;
     private String name;
@@ -11,7 +11,7 @@ public class MemberDTO {
     private String email;
     private char sex;
 
-    public MemberDTO(String iD, String passwd, String name, String phoneNum, String email, char sex) {
+    public MemberVO(String iD, String passwd, String name, String phoneNum, String email, char sex) {
         this.iD = iD;
         this.passwd = passwd;
         this.name = name;
@@ -44,17 +44,14 @@ public class MemberDTO {
         return sex;
     }
 
-    public void setPasswd(String passwd) {
-        this.passwd = passwd;
-    }
 
     @Override
     public boolean equals(Object obj) {
         if(!(obj instanceof Member)){
             return false;
         }
-        MemberDTO memberDTO = (MemberDTO) obj;
-        return this.iD.equals(memberDTO.getiD());
+        MemberVO memberVO = (MemberVO) obj;
+        return this.iD.equals(memberVO.getiD());
     }
 
     @Override

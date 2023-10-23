@@ -24,7 +24,7 @@ public class MovieDao {
         pstmt.setString(5, movieVO.getGenre());
         pstmt.setString(6, movieVO.getReleaseDate());
         int i = pstmt.executeUpdate();
-        System.out.println(i !=0 ? "추가 성공":"추가 실패");
+        System.out.println(i !=0 ? "영화 추가 성공":"영화 추가 실패");
 
         }catch (SQLException e){
             System.out.println("영화 추가 오류 발생");
@@ -84,10 +84,10 @@ public class MovieDao {
         pstmt.setString(6, movieVO.getReleaseDate());
         pstmt.setString(7,movieVO.getTitle());
         int i = pstmt.executeUpdate();
-        System.out.println(i !=0 ? "수정 성공":"수정 실패");
+        System.out.println(i !=0 ? "영화 수정 성공":"영화 수정 실패");
 
         }catch (SQLException e){
-            System.out.println("영화 수정 오류 발생");
+            e.printStackTrace();
         }finally {
 
         con.close();
@@ -108,7 +108,7 @@ public class MovieDao {
         pstmt = con.prepareStatement(query);
         pstmt.setString(1,movieVO.getTitle());
         int i = pstmt.executeUpdate();
-        System.out.println(i !=0 ? "삭제 성공":"삭제 실패");
+        System.out.println(i !=0 ? "영화 삭제 성공":"영화 삭제 실패");
 
         }catch (SQLException e){
             System.out.println("영화 삭제 오류 발생");

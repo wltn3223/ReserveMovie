@@ -31,6 +31,10 @@ public class TicketDao {
         }
     }
     public void deleteTicket(int ticketNo) throws  Exception{
+        if (findTicket(ticketNo) == null){
+            System.out.println("잘못된 티켓번호입니다");
+            return;
+        }
         Connection con;
         con = DBUtil.getConnection();
         PreparedStatement pstmt = null;
@@ -44,7 +48,7 @@ public class TicketDao {
             pstmt = con.prepareStatement(query);
             pstmt.setInt(1,ticketVO.getTicketNo());
             int i = pstmt.executeUpdate();
-            System.out.println(i !=0 ? "예매 취소 성공":"예매 취소 실패");
+            System.out.println("예매 취소 성공");
 
         }catch (SQLException e){
             System.out.println("예매 취소 오류 발생");
@@ -55,6 +59,10 @@ public class TicketDao {
         }
     }
     public void updateTicket(int ticketNo,int seatNo) throws  Exception{
+        if (findTicket(ticketNo) == null){
+            System.out.println("잘못된 티켓번호입니다");
+            return;
+        }
         Connection con;
         con = DBUtil.getConnection();
         TicketVO ticketVO = findTicket(ticketNo);
@@ -69,7 +77,7 @@ public class TicketDao {
             pstmt.setInt(1,seatNo);
             pstmt.setInt(2,ticketNo);
             int i = pstmt.executeUpdate();
-            System.out.println(i !=0 ? "수정 성공":"수정 실패");
+            System.out.println("수정 성공");
 
         }catch (SQLException e){
             System.out.println("좌석 변경 오류 발생");

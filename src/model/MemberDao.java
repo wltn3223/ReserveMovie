@@ -5,16 +5,15 @@ import Controller.DBUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class MemberDao {
-    public ArrayList<MemberDTO> selectMemberList() throws Exception {
-        ArrayList<MemberDTO> memberDTOArrayList = new ArrayList<>();
+    public ArrayList<MemberVO> selectMemberList() throws Exception {
+        ArrayList<MemberVO> memberVOArrayList = new ArrayList<>();
         Connection con = DBUtil.getConnection();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        MemberDTO memberDTO;
+        MemberVO memberVO;
         try {
             String query = "Select * from member";
             pstmt = con.prepareStatement(query);
@@ -26,13 +25,13 @@ public class MemberDao {
                 String phoneNum = rs.getNString("MEMBER_PHONENUM");
                 String email = rs.getString("MEMBER_EMAIL");
                 char sex = rs.getString("MEMBER_SEX").charAt(0);
-                memberDTO = new MemberDTO(id, passwd, name, phoneNum, email, sex);
-                memberDTOArrayList.add(memberDTO);
+                memberVO = new MemberVO(id, passwd, name, phoneNum, email, sex);
+                memberVOArrayList.add(memberVO);
             }
 
         } catch (Exception e) {
             System.out.println("회원 목록 sql 에러발생");
-            return memberDTOArrayList;
+            return memberVOArrayList;
         } finally {
                 con.close();
                 pstmt.close();
@@ -40,15 +39,15 @@ public class MemberDao {
 
 
         }
-        return memberDTOArrayList;
+        return memberVOArrayList;
     }
 
     // id를 통해 멤버 찾음
-    public MemberDTO findMember(String memberId) throws Exception {
+    public MemberVO findMember(String memberId) throws Exception {
         Connection con = DBUtil.getConnection();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        MemberDTO memberDTO = null;
+        MemberVO memberVO = null;
         try {
             String query = "Select * from member where MEMBER_ID = ?";
             pstmt = con.prepareStatement(query);
@@ -63,7 +62,7 @@ public class MemberDao {
             String phoneNum = rs.getNString("MEMBER_PHONENUM");
             String email = rs.getString("MEMBER_EMAIL");
             char sex = rs.getString("MEMBER_SEX").charAt(0);
-            memberDTO = new MemberDTO(id, passwd, name, phoneNum, email, sex);
+            memberVO = new MemberVO(id, passwd, name, phoneNum, email, sex);
 
         } catch (Exception e) {
             System.out.println("회원찾기 sql 에러");
@@ -73,28 +72,27 @@ public class MemberDao {
             rs.close();
 
         }
-        return memberDTO;
+        return memberVO;
     }
 
     // 회원가입시 멤버정보 table에 추가
-    public void insertMember(MemberDTO memberDTO)  throws  Exception{
+    public void insertMember(MemberVO memberVO)  throws  Exception{
         Connection con = DBUtil.getConnection();
         PreparedStatement pstmt = null;
         try {
             String query = "insert into member values(?,?,?,?,?,?) ";
             pstmt = con.prepareStatement(query);
-            pstmt.setString(1, memberDTO.getiD());
-            pstmt.setString(2, memberDTO.getPasswd());
-            pstmt.setString(3, memberDTO.getName());
-            pstmt.setString(4, memberDTO.getPhoneNum());
-            pstmt.setString(5, memberDTO.getEmail());
-            pstmt.setString(6, String.valueOf(memberDTO.getSex()));
-            int count = pstmt.executeUpdate();
-            if (count != 1) {
-                System.out.println("회원 정보 저장 실패");
-            }
+            pstmt.setString(1, memberVO.getiD());
+            pstmt.setString(2, memberVO.getPasswd());
+            pstmt.setString(3, memberVO.getName());
+            pstmt.setString(4, memberVO.getPhoneNum());
+            pstmt.setString(5, memberVO.getEmail());
+            pstmt.setString(6, String.valueOf(memberVO.getSex()));
+            pstmt.executeUpdate();
+            System.out.println("회원 가입 완료");
+
         } catch (Exception e) {
-            System.out.println("회원 삽입 sql오류발생");
+            System.out.println("회원 가입 sql오류발생");
         }finally {
             con.close();
             pstmt.close();
@@ -104,6 +102,10 @@ public class MemberDao {
 
     // 계정삭제 id로
     public void deleteMember(String memberid) throws  Exception {
+        if (findMember(memberid) == null){
+            System.out.println("없는 id입니다.");
+            return;
+        }
         Connection con = DBUtil.getConnection();
         PreparedStatement pstmt = null;
 
@@ -114,7 +116,10 @@ public class MemberDao {
             pstmt.setString(1, memberid);
             int count = pstmt.executeUpdate();
             if (count != 1) {
-                System.out.println("회원 정보 삭제 실패");
+                System.out.println("회원 탈퇴 실패");
+            }
+            else {
+                System.out.println("회원 탈퇴 완료");
             }
         } catch (Exception e) {
             System.out.println("회원 삭제 sql에러발생");
@@ -126,24 +131,24 @@ public class MemberDao {
 
     }
 
-    public void updateMember(MemberDTO memberDTO) throws  Exception {
+    public void updateMember(String id,String password) throws  Exception {
+        if (findMember(id) == null){
+            System.out.println("없는 id입니다.");
+            return;
+        }
         Connection con = DBUtil.getConnection();
         PreparedStatement pstmt = null;
         try {
-            String query = "update member set MEMBER_ID = ?, MEMBER_PASSWD = ?, MEMBER_NAME =?, MEMBER_PHONENUM = ?, MEMBER_EMAIL = ?, MEMBER_SEX = ?";
+            String query = "update member set MEMBER_PASSWD = ? where MEMBER_ID = ? ";
             pstmt = con.prepareStatement(query);
-            pstmt.setString(1, memberDTO.getiD());
-            pstmt.setString(2, memberDTO.getPasswd());
-            pstmt.setString(3, memberDTO.getName());
-            pstmt.setString(4, memberDTO.getPhoneNum());
-            pstmt.setString(5, memberDTO.getEmail());
-            pstmt.setString(6, String.valueOf(memberDTO.getSex()));
+            pstmt.setString(1, password);
+            pstmt.setString(2, id);
             int count = pstmt.executeUpdate();
-            if (count != 1) {
-                System.out.println("회원 정보 수정 실패");
-            }
+
+            System.out.println("비밀번호 수정 완료");
+
         } catch (Exception e) {
-            System.out.println("회원 정보 수정 sql 오류 발생");
+            System.out.println("비밀번호 수정 sql 오류 발생");
         } finally {
                 con.close();
                 pstmt.close();

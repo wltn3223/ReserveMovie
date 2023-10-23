@@ -42,9 +42,9 @@ public class AdminMovieService {
         info.add(br.readLine().trim());
 
         while (true) {
-            System.out.println("영화 개봉 날짜 입력(예2017/04/24)");
+            System.out.println("영화 개봉 날짜 입력(예2017-04-24)");
             date = br.readLine().trim();
-            if (date.split("/").length != 3) {
+            if (date.split("-").length != 3) {
                 System.out.println("잘못입력하셨습니다. 다시입력해주세요");
                 continue;
             }
@@ -62,6 +62,7 @@ public class AdminMovieService {
     }
 
     public void deleteMovie() throws Exception {
+        printMovie();
         System.out.println("삭제할 영화 제목 입력");
         String title = br.readLine().trim();
         if (movieDao.findMoive(title) == null){
@@ -72,6 +73,7 @@ public class AdminMovieService {
     }
 
     public void updateMovie() throws Exception {
+        printMovie();
         String runTime;
         String director;
         String country;
@@ -107,9 +109,9 @@ public class AdminMovieService {
         System.out.println("수정할 개봉 날짜입력(예2017/04/24)");
         date = br.readLine().trim();
         if (date.isEmpty()){
-            date = movieVO.getReleaseDate();
+            date = movieVO.getReleaseDate().substring(0,9);
         }
-        if (date.split("/").length != 3){
+        if (date.split("-").length != 3){
             System.out.println("날짜 형식을 잘못입력하셨습니다.");
             return;
         }
