@@ -48,27 +48,7 @@ public class AdminCinemaService {
 
     }
 
-    public void updateCinemaSeats() throws Exception {
-        printCinemaList();
-        try {
 
-            System.out.println("수정할 상영관 번호 입력 ");
-            int cinemaNo = Integer.parseInt(br.readLine().trim());
-            System.out.println("제외할 좌석 수 입력");
-            int seats = Integer.parseInt(br.readLine().trim());
-            CinemaVO cinema = cinemaDao.findCinema(cinemaNo);
-            if (seats >= cinema.getRemainSeats() || seats < 0) {
-                System.out.println("올바른 숫자를 입력해주세요 다시 시도해주세요");
-                return;
-            }
-            cinemaDao.updateCinemaSeat(cinemaNo, seats);
-
-        } catch (Exception e) {
-            System.out.println("올바른 숫자를 입력해주세요 다시 시도해주세요");
-        }
-
-
-    }
 
     public void printCinemaList() throws Exception {
         System.out.println("현재 사용가능한 상영관 목록 출력");

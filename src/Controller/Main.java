@@ -98,9 +98,6 @@ public class Main {
                                         adminCinemaService.printCinemaList();
                                         break;
                                     case "3":
-                                        adminCinemaService.updateCinemaSeats();
-                                        break;
-                                    case "4":
                                         adminCinemaService.deleteCinema();
                                         break;
                                 }

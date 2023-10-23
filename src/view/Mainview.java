@@ -37,7 +37,7 @@ public class Mainview {
     }
 
     public static String getCinemaAdminMenu() throws Exception {
-        System.out.println("1. 상영관 추가 2. 상영관 조회 3. 상영관 수정 4. 상영관 제거 0. 돌아가기");
+        System.out.println("1. 상영관 추가 2. 상영관 조회 3. 상영관 제거 0. 돌아가기");
         return br.readLine();
     }
 

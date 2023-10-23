@@ -10,7 +10,9 @@ import java.util.ArrayList;
 public class MemberTicketService {
     private final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     private final TicketDao ticketDao = new TicketDao();
+    private final CinemaDao cinemaDao = new CinemaDao();
    public void reserveMovie(String memberId) throws  Exception{
+       PlayingMovieDao playingMovieDao = new PlayingMovieDao();
        AdminPlayingMovieService adminPlayingMovieService = new AdminPlayingMovieService();
        int movieNo = 0;
        int seatNo = 0;
@@ -37,17 +39,21 @@ public class MemberTicketService {
        }
        TicketVO ticketVO = new TicketVO(memberId,movieNo,seatNo);
        ticketDao.insertTicket(ticketVO);
+       PlayingMovieVO playingMovie = playingMovieDao.findPlayingMovie(ticketVO.getPlayingMovieNo());
+       cinemaDao.minusCinemaSeat(playingMovie.getCinemaNo());
 
    }
     public void cancle(String memberid) throws  Exception{
+        PlayingMovieDao playingMovieDao = new PlayingMovieDao();
         System.out.println("예매 취소");
         viewTicketList(memberid);
         ArrayList<TicketVO> ticketList = ticketDao.findTicketList(memberid);
+        TicketVO ticket = null;
         if (ticketList.isEmpty()) return;
         System.out.println("삭제할 티켓 번호 입력");
         try {
         int no = Integer.parseInt(br.readLine().trim());
-            TicketVO ticket = ticketDao.findTicket(no);
+            ticket = ticketDao.findTicket(no);
             if (ticket == null){
                 System.out.println("잘못된 번호를 입력하셨습니다. 다시 시도 해주세요");
                 return;
@@ -56,6 +62,8 @@ public class MemberTicketService {
         }catch (NumberFormatException e){
             System.out.println("숫자를 입력해주세요 다시시도해주세요.");
         }
+        PlayingMovieVO playingMovie = playingMovieDao.findPlayingMovie(ticket.getPlayingMovieNo());
+        cinemaDao.plusCinemaSeat(playingMovie.getCinemaNo());
 
 
 

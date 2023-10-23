@@ -29,7 +29,7 @@ public class CinemaDao {
             pstmt.close();
         }
     }
-    public void updateCinemaSeat(int cinemaNo,int peopleNo) throws Exception{
+    public void plusCinemaSeat(int cinemaNo) throws Exception{
         if (findCinema(cinemaNo) == null){
             System.out.println("잘못된 상영관 번호입니다.");
             return;
@@ -37,12 +37,11 @@ public class CinemaDao {
         Connection con;
         con = DBUtil.getConnection();
         PreparedStatement pstmt = null;
-        String query = "update cinema set C_REMAIN_SEAT = C_REMAIN_SEAT - ? where C_NO = ? " ;
+        String query = "update cinema set C_REMAIN_SEAT = C_REMAIN_SEAT + 1 where C_NO = ? " ;
 
         try {
             pstmt = con.prepareStatement(query);
-            pstmt.setInt(1, peopleNo);
-            pstmt.setInt(2, cinemaNo);
+            pstmt.setInt(1, cinemaNo);
             pstmt.executeUpdate();
             System.out.println("잔여 좌석 수정 성공");
 
@@ -55,7 +54,36 @@ public class CinemaDao {
         }
 
 
+
     }
+    public void minusCinemaSeat(int cinemaNo) throws Exception{
+        if (findCinema(cinemaNo) == null){
+            System.out.println("잘못된 상영관 번호입니다.");
+            return;
+        }
+        Connection con;
+        con = DBUtil.getConnection();
+        PreparedStatement pstmt = null;
+        String query = "update cinema set C_REMAIN_SEAT = C_REMAIN_SEAT - 1 where C_NO = ? " ;
+
+        try {
+            pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, cinemaNo);
+            pstmt.executeUpdate();
+            System.out.println("잔여 좌석 수정 성공");
+
+        }catch (SQLException e){
+            System.out.println("상영관 정보 수정 오류 발생");
+        }finally {
+
+            con.close();
+            pstmt.close();
+        }
+
+
+
+    }
+
     public ArrayList<CinemaVO> selectCinemaList() throws  Exception{
         ArrayList<CinemaVO> cinemaVOArrayList = new ArrayList<>();
         Connection con;
