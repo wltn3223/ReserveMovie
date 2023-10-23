@@ -123,14 +123,17 @@ public class MemberService {
 
 
     }
+
     private boolean blankCheck(ArrayList<String> list){
         boolean blankflag = false;
-        for (int i =0; i<list.size();i++){
-            if (list.get(i).isEmpty()){
+        for (String data:list){
+            if (data.isEmpty()){
                 blankflag = true;
                 break;
             }
         }
         return blankflag;
     }
+
+
 }

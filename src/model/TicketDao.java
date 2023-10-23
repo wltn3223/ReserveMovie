@@ -13,16 +13,14 @@ public class TicketDao {
         con = DBUtil.getConnection();
 
         PreparedStatement pstmt = null;
-        String query = "insert into ticket values(?,ticket_seq.nextval,?,?,?,?)";
+        String query = "insert into ticket(PM_NO,SEAT_NO,TICKET_PRICE) values(?,?,?)";
         try {
             pstmt = con.prepareStatement(query);
-            pstmt.setString(1,ticketVO.getMemberId());
-            pstmt.setInt(2,ticketVO.getCinemaId());
-            pstmt.setString(3,ticketVO.getMovieTitle());
-            pstmt.setInt(4,ticketVO.getSeatNum());
-            pstmt.setInt(5,ticketVO.getSeatPrice());
+            pstmt.setInt(1,ticketVO.getPlayingMovieNo());
+            pstmt.setInt(2,ticketVO.getTicketNo());
+            pstmt.setInt(3,ticketVO.getTicketPrice());
             int i = pstmt.executeUpdate();
-            System.out.println(i !=0 ? "추가 성공":"추가 실패");
+            System.out.println(i !=0 ? "영화 예매 성공":"영화 예매 실패");
 
         }catch (SQLException e){
             System.out.println("영화 예매 오류 발생");
@@ -56,7 +54,7 @@ public class TicketDao {
 
         }
     }
-    public void updateTicket(int ticketNo,int seatNum) throws  Exception{
+    public void updateTicket(int ticketNo,int seatNo) throws  Exception{
         Connection con;
         con = DBUtil.getConnection();
         TicketVO ticketVO = findTicket(ticketNo);
@@ -65,15 +63,11 @@ public class TicketDao {
             return;
         }
         PreparedStatement pstmt = null;
-        String query = "update ticket set values(?,?,?,?,?,?)";
+        String query = "update ticket set SEAT_NO = ? where TICKET_NO = ?";
         try {
             pstmt = con.prepareStatement(query);
-            pstmt.setString(1,ticketVO.getMemberId());
-            pstmt.setInt(2,ticketVO.getTicketNo());
-            pstmt.setInt(3,ticketVO.getCinemaId());
-            pstmt.setString(3,ticketVO.getMovieTitle());
-            pstmt.setInt(5,seatNum);
-            pstmt.setInt(6,ticketVO.getSeatPrice());
+            pstmt.setInt(1,seatNo);
+            pstmt.setInt(2,ticketNo);
             int i = pstmt.executeUpdate();
             System.out.println(i !=0 ? "수정 성공":"수정 실패");
 
@@ -98,17 +92,14 @@ public class TicketDao {
             pstmt.setInt(1,ticketNo);
             rs = pstmt.executeQuery();
             while (rs.next()){
-                String memberId = rs.getString("MEMBER_ID");
                 int cinemaNo = rs.getInt("TICKET_NO");
-                int cinemaId = rs.getInt("C_ID");
-                String movieTitle = rs.getString("MOVIE_TITLE");
-                int seatNum =  rs.getInt("TICKET_SEATS_NUM");
-                int seatPrice =  rs.getInt("TICKET_PRICE");
-                ticketVO = new TicketVO(memberId,cinemaNo,cinemaId,movieTitle,seatNum,seatPrice);
+                int pmNo = rs.getInt("PM_NO");
+                int seatNo =  rs.getInt("SEAT_NO");
+                ticketVO = new TicketVO(cinemaNo,pmNo,seatNo);
             }
 
         }catch (SQLException e){
-            System.out.println("예매 내역 조회 오류 발생");
+            System.out.println("내 예매 내역 조회 오류 발생");
             return null;
         }finally {
             con.close();

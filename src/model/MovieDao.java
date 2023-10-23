@@ -58,7 +58,7 @@ public class MovieDao {
         }
 
         }catch (SQLException e){
-            System.out.println("영화 목록 조회 오류 발생");
+            System.out.println("개봉한 영화 목록 조회 오류 발생");
             return null;
         }finally {
         con.close();

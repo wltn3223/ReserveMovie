@@ -3,53 +3,36 @@ package model;
 import java.util.Objects;
 
 public class TicketVO {
-    private String memberId;
     private int ticketNo;
-    private int cinemaId;
-    private String movieTitle;
-    private int seatNum;
-    final private int seatPrice;
+    private int playingMovieNo;
+    private int seatNo;
+    private static final int ticketPrice = 12000;
 
-    public TicketVO(String memberId, int cinemaId, String movieTitle, int seatNum) {
-        this.memberId = memberId;
-        this.cinemaId = cinemaId;
-        this.movieTitle = movieTitle;
-        this.seatNum = seatNum;
-        this.seatPrice = 12000;
-    }
-
-
-    public TicketVO(String memberId, int ticketNo, int cinemaId, String movieTitle, int seatNum, int seatPrice) {
-        this.memberId = memberId;
+    public TicketVO(int ticketNo, int playingMovieNo, int seatNo) {
         this.ticketNo = ticketNo;
-        this.cinemaId = cinemaId;
-        this.movieTitle = movieTitle;
-        this.seatNum = seatNum;
-        this.seatPrice = 12000;
+        this.playingMovieNo = playingMovieNo;
+        this.seatNo = seatNo;
     }
 
-    public String getMemberId() {
-        return memberId;
+    public TicketVO(int playingMovieNo, int seatNo) {
+        this.playingMovieNo = playingMovieNo;
+        this.seatNo = seatNo;
     }
 
     public int getTicketNo() {
         return ticketNo;
     }
 
-    public int getCinemaId() {
-        return cinemaId;
+    public int getPlayingMovieNo() {
+        return playingMovieNo;
     }
 
-    public String getMovieTitle() {
-        return movieTitle;
+    public int getSeatNo() {
+        return seatNo;
     }
 
-    public int getSeatNum() {
-        return seatNum;
-    }
-
-    public int getSeatPrice() {
-        return seatPrice;
+    public int getTicketPrice() {
+        return ticketPrice;
     }
 
     @Override
@@ -58,7 +41,7 @@ public class TicketVO {
             return false;
         }
         TicketVO ticketVO = (TicketVO) o;
-        return ticketNo == ticketVO.ticketNo && seatNum == ticketVO.seatNum;
+        return ticketNo == ticketVO.ticketNo;
     }
 
     @Override
