@@ -17,7 +17,7 @@ public class TicketDao {
         String query = "insert into ticket(MEMBER_ID, PM_NO,SEAT_NO,TICKET_PRICE) values(?,?,?,?)";
         try {
             pstmt = con.prepareStatement(query);
-            pstmt.setString(1,"MEMBER_ID");
+            pstmt.setString(1,ticketVO.getMemberId());
             pstmt.setInt(2,ticketVO.getPlayingMovieNo());
             pstmt.setInt(3,ticketVO.getSeatNo());
             pstmt.setInt(4,ticketVO.getTicketPrice());
@@ -194,7 +194,7 @@ public class TicketDao {
         }
         return count;
     }
-    public boolean checkseat(int seat, int cinema) throws Exception{
+    public boolean checkseat(int seat, int cinemaNo) throws Exception{
         Connection con;
         con = DBUtil.getConnection();
         ResultSet rs = null;
@@ -202,16 +202,16 @@ public class TicketDao {
         PreparedStatement pstmt = null;
         int count = 0;
         try {
-            String query = "select CINEMA from ticket where C_NO = ?";
+            String query = "select * from CINEMA where C_NO = ? ";
             pstmt = con.prepareStatement(query);
-            pstmt.setInt(1,cinema);
+            pstmt.setInt(1,cinemaNo);
             rs = pstmt.executeQuery();
             while (rs.next()){
                 totalseat  = rs.getInt("C_TOTAL_SEAT");
             }
 
         }catch (SQLException e){
-            System.out.println("좌석 조회 오류 발생");
+            e.printStackTrace();
 
         }finally {
             con.close();

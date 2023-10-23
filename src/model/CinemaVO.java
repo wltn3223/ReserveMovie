@@ -53,10 +53,8 @@ public class CinemaVO {
 
     @Override
     public String toString() {
-        return "CinemaVO{" +
-                "cinemaNo=" + cinemaNo +
-                ", totalSeats=" + totalSeats +
-                ", remainSeats=" + remainSeats +
-                '}';
+        return "상영관번호=" + cinemaNo +
+                ", 총좌석수=" + totalSeats +
+                ", 잔여좌석수=" + remainSeats;
     }
 }

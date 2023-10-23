@@ -60,12 +60,11 @@ public class PlayingMovieVO {
 
     @Override
     public String toString() {
-        return "PlayingMovieVO{" +
-                "movieTitle='" + movieTitle + '\'' +
-                ", cinemaNo=" + cinemaNo +
-                ", playingMovieNo=" + playingMovieNo +
-                ", startTime='" + startTime + '\'' +
-                ", finishTime='" + finishTime + '\'' +
-                '}';
+        return
+                "영화제목='" + movieTitle + '\'' +
+                ", 상영관번호=" + cinemaNo +
+                ", 상영번호=" + playingMovieNo +
+                ", 시작시간='" + startTime + '\'' +
+                ", 종료시간='" + finishTime + '\'';
     }
 }

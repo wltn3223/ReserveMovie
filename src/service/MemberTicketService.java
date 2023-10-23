@@ -24,6 +24,7 @@ public class MemberTicketService {
 
        }catch (NumberFormatException e){
            System.out.println("잘못된 좌석번호를 입력하셨습니다. 다시 시도해주세요");
+           return;
        }
        boolean checkseat = ticketDao.checkseat(seatNo,   movieNo);
        if (!checkseat){
@@ -69,7 +70,7 @@ public class MemberTicketService {
         System.out.println("좌석 변경할 티켓 번호 입력");
         try {
             int ticketNo = Integer.parseInt(br.readLine().trim());
-            TicketVO ticket = ticketDao.findTicket(ticketNo );
+            TicketVO ticket = ticketDao.findTicket(ticketNo);
             if (ticket == null){
                 System.out.println("잘못된 번호를 입력하셨습니다. 다시 시도 해주세요");
                 return;
@@ -77,7 +78,7 @@ public class MemberTicketService {
             System.out.println("변경할 좌석 입력");
             int seatNo = Integer.parseInt(br.readLine().trim());
             PlayingMovieVO playingMovie = playingMovieDao.findPlayingMovie(ticket.getPlayingMovieNo());
-            boolean checkseat = ticketDao.checkseat(seatNo, playingMovie.getCinemaNo());
+            boolean checkseat = ticketDao.checkseat(seatNo,playingMovie.getCinemaNo());
             if (!checkseat){
                 System.out.println("없는 좌석입니다. 다시 시도해주세요");
                 return;

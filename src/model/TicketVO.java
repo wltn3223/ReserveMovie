@@ -58,10 +58,9 @@ public class TicketVO {
 
     @Override
     public String toString() {
-        return "TicketVO{" +
-                "ticketNo=" + ticketNo +
-                ", playingMovieNo=" + playingMovieNo +
-                ", seatNo=" + seatNo +
-                '}';
+        return
+                "티켓번호=" + ticketNo +
+                ", 상영번호=" + playingMovieNo +
+                ", 좌석번호=" + seatNo;
     }
 }

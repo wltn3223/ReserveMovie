@@ -138,13 +138,15 @@ public class Main {
             }
 
         }
-        flag = false;
+
+            flag = false;
         while (!flag){
             try {
                 String userReserveMenu = Mainview.getUserReserveMenu();
                 switch (userReserveMenu){
                     case "0":
                         flag = true;
+                        break;
                     case "1":
                         memberTicketService.reserveMovie(memberVO.getiD());
                         break;
@@ -156,6 +158,7 @@ public class Main {
                         break;
                     case "4":
                         memberTicketService.changeSeat(memberVO.getiD());
+                        break;
 
                 }
 

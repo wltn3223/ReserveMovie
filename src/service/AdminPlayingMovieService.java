@@ -73,7 +73,7 @@ public class AdminPlayingMovieService {
     public void deletePlayingMovie()throws  Exception{
         printPlayingMovieList();
         int no;
-        System.out.println("폐쇄할 상영관 번호 입력");
+        System.out.println("제거할 영화 번호 입력");
         try {
         no = Integer.parseInt(br.readLine().trim());
         }catch (NumberFormatException e){

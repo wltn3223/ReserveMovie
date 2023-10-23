@@ -61,13 +61,12 @@ public class MemberVO {
 
     @Override
     public String toString() {
-        return "MemberVO{" +
-                "iD='" + iD + '\'' +
-                ", passwd='" + passwd + '\'' +
-                ", name='" + name + '\'' +
-                ", phoneNum='" + phoneNum + '\'' +
-                ", email='" + email + '\'' +
-                ", sex=" + sex +
-                '}';
+        return
+                "아이디='" + iD + '\'' +
+                ", 비밀번호='" + passwd + '\'' +
+                ", 이름='" + name + '\'' +
+                ", 전화번호='" + phoneNum + '\'' +
+                ", 이메일='" + email + '\'' +
+                ", 성별=" + sex;
     }
 }

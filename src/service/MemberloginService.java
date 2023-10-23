@@ -14,7 +14,7 @@ public class MemberloginService {
     public MemberVO login() throws Exception {
         System.out.println("로그인 메뉴 입니다.");
         System.out.println("아이디 입력:");
-        String id = br.readLine().trim();
+        String id = br.readLine().trim().toUpperCase();
         MemberVO member = memberDao.findMember(id);
         if (member == null) {
             System.out.println("없는 아이디 입니다. 다시 시도해주세요.");

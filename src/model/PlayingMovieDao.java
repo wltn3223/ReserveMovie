@@ -37,7 +37,7 @@ public class PlayingMovieDao {
         PreparedStatement pstmt = null;
 
         try {
-            String query = "delete from PLAYINGMOIVE where PM_NO = ?";
+            String query = "delete from PLAYINGMOVIE where PM_NO = ?";
             pstmt = con.prepareStatement(query);
 
             pstmt.setInt(1, pmNo);

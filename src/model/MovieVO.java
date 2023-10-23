@@ -60,13 +60,12 @@ public class MovieVO {
 
     @Override
     public String toString() {
-        return "MovieVO{" +
-                "title='" + title + '\'' +
-                ", runTime='" + runTime + '\'' +
-                ", director='" + director + '\'' +
-                ", country='" + country + '\'' +
-                ", genre='" + genre + '\'' +
-                ", releaseDate='" + releaseDate + '\'' +
-                '}';
+        return
+                "영화제목='" + title + '\'' +
+                ", 상영시간='" + runTime + '\'' +
+                ", 감독='" + director + '\'' +
+                ", 국가='" + country + '\'' +
+                ", 장르='" + genre + '\'' +
+                ", 개봉일='" + releaseDate + '\'';
     }
 }
