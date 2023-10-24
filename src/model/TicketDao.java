@@ -223,5 +223,37 @@ public class TicketDao {
 
 
     }
+    public ArrayList<Integer> getRereserveSeat(int pm_no) throws Exception{
+    	Connection con;
+        con = DBUtil.getConnection();
+        ResultSet rs = null;
+        TicketVO ticketVO = null;
+        PreparedStatement pstmt = null;
+        ArrayList<Integer> seat = new ArrayList<Integer>();
+         int count = 0;
+        try {
+            String query = "select * from ticket a where PM_NO  = ?";
+            pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, pm_no);
+            
+            rs = pstmt.executeQuery();
+            while (rs.next()){
+               count  = rs.getInt("SEAT_NO");
+               seat.add(count);
+            }
+
+        }catch (SQLException e){
+            System.out.println("좌석 중복 조회오류 발생");
+            return seat;
+        }finally {
+            con.close();
+            pstmt.close();
+            rs.close();
+
+        }
+        return seat;
+    }
+    	
+    
 
 }

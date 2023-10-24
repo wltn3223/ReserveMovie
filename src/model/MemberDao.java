@@ -65,7 +65,7 @@ public class MemberDao {
             memberVO = new MemberVO(id, passwd, name, phoneNum, email, sex);
 
         } catch (Exception e) {
-            System.out.println("회원찾기 sql 에러");
+           System.out.println(e.getMessage());
         }finally {
             con.close();
             pstmt.close();

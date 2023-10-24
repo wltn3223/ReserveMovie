@@ -26,6 +26,7 @@ public class DBUtil {
 
 
         } catch (Exception e) {
+        	System.out.println("에러");
         }
         return con;
 

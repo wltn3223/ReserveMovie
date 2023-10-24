@@ -6,17 +6,18 @@ public class CinemaVO {
 
     private int cinemaNo;
     private int totalSeats;
-    private int remainSeats;
+    
 
-    public CinemaVO(int cinemaNo, int totalSeats, int remainSeats) {
-        this.cinemaNo = cinemaNo;
-        this.totalSeats = totalSeats;
-        this.remainSeats = remainSeats;
-    }
+  
+    public CinemaVO(int cinemaNo, int totalSeats) {
+		super();
+		this.cinemaNo = cinemaNo;
+		this.totalSeats = totalSeats;
+	}
 
-    public CinemaVO(int totalSeats, int remainSeats) {
+	public CinemaVO(int totalSeats) {
         this.totalSeats = totalSeats;
-        this.remainSeats = remainSeats;
+      
     }
 
     public int getCinemaNo() {
@@ -28,14 +29,10 @@ public class CinemaVO {
         return totalSeats;
     }
 
-    public int getRemainSeats() {
-        return remainSeats;
-    }
+  
 
 
-    public void setRemainSeats(int remainSeats) {
-        this.remainSeats = this.totalSeats - remainSeats;
-    }
+   
 
     @Override
     public boolean equals(Object obj) {
@@ -54,7 +51,6 @@ public class CinemaVO {
     @Override
     public String toString() {
         return "상영관번호=" + cinemaNo +
-                ", 총좌석수=" + totalSeats +
-                ", 잔여좌석수=" + remainSeats;
+                ", 총좌석수=" + totalSeats;
     }
 }

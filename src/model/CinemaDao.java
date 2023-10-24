@@ -14,11 +14,10 @@ public class CinemaDao {
         con = DBUtil.getConnection();
 
         PreparedStatement pstmt = null;
-        String query = "insert into cinema(C_TOTAL_SEAT,C_REMAIN_SEAT) values(?,?)";
+        String query = "insert into cinema(C_TOTAL_SEAT) values(?)";
         try {
             pstmt = con.prepareStatement(query);
             pstmt.setInt(1, cinemaVO.getTotalSeats());
-            pstmt.setInt(2, cinemaVO.getRemainSeats());
             int i = pstmt.executeUpdate();
             System.out.println(i !=0 ? "상영관 추가 성공":"상영관 추가 실패");
 
@@ -29,60 +28,11 @@ public class CinemaDao {
             pstmt.close();
         }
     }
-    public void plusCinemaSeat(int cinemaNo) throws Exception{
-        if (findCinema(cinemaNo) == null){
-            System.out.println("잘못된 상영관 번호입니다.");
-            return;
-        }
-        Connection con;
-        con = DBUtil.getConnection();
-        PreparedStatement pstmt = null;
-        String query = "update cinema set C_REMAIN_SEAT = C_REMAIN_SEAT + 1 where C_NO = ? " ;
-
-        try {
-            pstmt = con.prepareStatement(query);
-            pstmt.setInt(1, cinemaNo);
-            pstmt.executeUpdate();
-            System.out.println("잔여 좌석 수정 성공");
-
-        }catch (SQLException e){
-            System.out.println("상영관 정보 수정 오류 발생");
-        }finally {
-
-            con.close();
-            pstmt.close();
-        }
+   
 
 
-
-    }
-    public void minusCinemaSeat(int cinemaNo) throws Exception{
-        if (findCinema(cinemaNo) == null){
-            System.out.println("잘못된 상영관 번호입니다.");
-            return;
-        }
-        Connection con;
-        con = DBUtil.getConnection();
-        PreparedStatement pstmt = null;
-        String query = "update cinema set C_REMAIN_SEAT = C_REMAIN_SEAT - 1 where C_NO = ? " ;
-
-        try {
-            pstmt = con.prepareStatement(query);
-            pstmt.setInt(1, cinemaNo);
-            pstmt.executeUpdate();
-            System.out.println("잔여 좌석 수정 성공");
-
-        }catch (SQLException e){
-            System.out.println("상영관 정보 수정 오류 발생");
-        }finally {
-
-            con.close();
-            pstmt.close();
-        }
-
-
-
-    }
+    
+   
 
     public ArrayList<CinemaVO> selectCinemaList() throws  Exception{
         ArrayList<CinemaVO> cinemaVOArrayList = new ArrayList<>();
@@ -97,8 +47,7 @@ public class CinemaDao {
             while (rs.next()){
                 int cinemaNo = rs.getInt("C_NO");
                 int totalSeats = rs.getInt("C_TOTAL_SEAT");
-                int remainSeats = rs.getInt("C_REMAIN_SEAT");
-                CinemaVO cinemaVO = new CinemaVO(cinemaNo,totalSeats,remainSeats);
+                CinemaVO cinemaVO = new CinemaVO(cinemaNo,totalSeats);
 
                 cinemaVOArrayList.add(cinemaVO);
 
@@ -159,8 +108,7 @@ public class CinemaDao {
             while (rs.next()){
                 cinemaNo = rs.getInt("C_NO");
                 int totalSeats = rs.getInt("C_TOTAL_SEAT");
-                int remainSeats = rs.getInt("C_REMAIN_SEAT");
-               cinemaVO = new CinemaVO(cinemaNo,totalSeats,remainSeats);
+               cinemaVO = new CinemaVO(cinemaNo,totalSeats);
             }
 
         }catch (SQLException e){
@@ -174,5 +122,8 @@ public class CinemaDao {
         }
         return cinemaVO;
     }
+  
+    	
+  
 }
 
