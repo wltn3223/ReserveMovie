@@ -13,17 +13,18 @@ public class PlayingMovieDao {
         Connection con = DBUtil.getConnection();
         PreparedStatement pstmt = null;
         try {
-            String query = "insert into PLAYINGMOVIE(MOVIE_TITLE,C_NO,PM_START_TIME,PM_FINISH_TIME) values(?,?,TO_DATE(?, 'YYYYMMDDHH24MISS'),TO_DATE(?, 'YYYYMMDDHH24MISS')) ";
+            String query = "insert into PLAYINGMOVIE(MOVIE_TITLE,C_NO,PM_REMAINSEAT,PM_START_TIME,PM_FINISH_TIME) values(?,?,?,TO_DATE(?, 'YYYYMMDDHH24MISS'),TO_DATE(?, 'YYYYMMDDHH24MISS')) ";
             pstmt = con.prepareStatement(query);
             pstmt.setString(1, playingMovieVO.getMovieTitle());
             pstmt.setInt(2, playingMovieVO.getCinemaNo());
-            pstmt.setString(3, playingMovieVO.getStartTime());
-            pstmt.setString(4, playingMovieVO.getFinishTime());
+            pstmt.setInt(3, playingMovieVO.getRemainseat());
+            pstmt.setString(4, playingMovieVO.getStartTime());
+            pstmt.setString(5, playingMovieVO.getFinishTime());
             pstmt.executeUpdate();
             System.out.println("상영할 영화 추가 완료");
 
         } catch (Exception e) {
-            System.out.println("상영할 영화 추가 에러 발생");
+            e.printStackTrace();
         } finally {
             con.close();
             pstmt.close();
@@ -67,9 +68,10 @@ public class PlayingMovieDao {
                 String title = rs.getString("MOVIE_TITLE");
                 int cinemaNo = rs.getInt("C_NO");
                 int playingmovieNo = rs.getInt("PM_NO");
+                int remainseat = rs.getInt("PM_REMAINSEAT");
                 String startTime = rs.getString("PM_START_TIME");
                 String finishTime = rs.getString("PM_FINISH_TIME");
-                PlayingMovieVO playingMovieVO = new PlayingMovieVO(title, cinemaNo, playingmovieNo, startTime, finishTime);
+                PlayingMovieVO playingMovieVO = new PlayingMovieVO(title, cinemaNo, remainseat, playingmovieNo, startTime, finishTime);
                 playingMovieList.add(playingMovieVO);
             }
 
@@ -131,9 +133,10 @@ public class PlayingMovieDao {
                 String movieTitle = rs.getString("MOVIE_TITLE");
                 int cNo = rs.getInt("C_NO");
                 pmNo = rs.getInt("PM_NO");
+                int seats = rs.getInt("PM_REMAINSEAT");
                 String startTime = rs.getString("PM_START_TIME");
                 String finishTime = rs.getString("PM_FINISH_TIME");
-                playingMovieVO = new PlayingMovieVO(movieTitle, cNo, pmNo, startTime, finishTime);
+                playingMovieVO = new PlayingMovieVO(movieTitle, cNo,seats ,pmNo, startTime, finishTime);
             }
 
         } catch (SQLException e) {

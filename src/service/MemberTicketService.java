@@ -10,7 +10,6 @@ import java.util.ArrayList;
 public class MemberTicketService {
     private final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     private final TicketDao ticketDao = new TicketDao();
-    private final CinemaDao cinemaDao = new CinemaDao();
    public void reserveMovie(String memberId) throws  Exception{
        AdminPlayingMovieService adminPlayingMovieService = new AdminPlayingMovieService();
        int movieNo = 0;
@@ -47,7 +46,7 @@ public class MemberTicketService {
      
         System.out.println("예매 취소");
         viewTicketList(memberid);
-        ArrayList<TicketVO> ticketList = ticketDao.findTicketList(memberid);
+        ArrayList<MyReserve> ticketList = ticketDao.findTicketList(memberid);
         TicketVO ticket = null;
         if (ticketList.isEmpty()) return;
         System.out.println("삭제할 티켓 번호 입력");
@@ -72,7 +71,7 @@ public class MemberTicketService {
         PlayingMovieDao playingMovieDao = new PlayingMovieDao();
         System.out.println("좌석 변경");
         viewTicketList(memberid);
-        ArrayList<TicketVO> ticketList = ticketDao.findTicketList(memberid);
+        ArrayList<MyReserve> ticketList = ticketDao.findTicketList(memberid);
         if (ticketList.isEmpty()) return;
         System.out.println("좌석 변경할 티켓 번호 입력");
         try {
@@ -103,7 +102,7 @@ public class MemberTicketService {
     }
     public void viewTicketList(String memberid) throws Exception{
         System.out.println("내 예매 내역");
-        ArrayList<TicketVO> ticketList = ticketDao.findTicketList(memberid);
+        ArrayList<MyReserve> ticketList = ticketDao.findTicketList(memberid);
         if (ticketList.isEmpty()) System.out.println("현재 예매한 티켓이 없습니다.");
         ticketList.forEach(System.out::println);
     }
@@ -123,6 +122,7 @@ public class MemberTicketService {
     		if(i % 10 == 0) System.out.print("\n");
     	
     	}
+        System.out.println("");
     	
     }
     
