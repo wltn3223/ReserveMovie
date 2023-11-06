@@ -172,7 +172,7 @@ public class TicketDao {
         }
         return count;
     }
-    public boolean checkseat(int seat, int cinemaNo) throws Exception{
+    public boolean checkseat(int seat, int pmno) throws Exception{
         Connection con;
         con = DBUtil.getConnection();
         ResultSet rs = null;
@@ -180,9 +180,9 @@ public class TicketDao {
         PreparedStatement pstmt = null;
         int count = 0;
         try {
-            String query = "select * from CINEMA where C_NO = ? ";
+            String query = "select * from CINEMA where C_NO = (SELECT C_NO FROM PLAYINGMOVIE WHERE PM_NO = ?) ";
             pstmt = con.prepareStatement(query);
-            pstmt.setInt(1,cinemaNo);
+            pstmt.setInt(1,pmno);
             rs = pstmt.executeQuery();
             while (rs.next()){
                 totalseat  = rs.getInt("C_TOTAL_SEAT");

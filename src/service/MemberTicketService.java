@@ -27,7 +27,7 @@ public class MemberTicketService {
            System.out.println("잘못된 좌석번호를 입력하셨습니다. 다시 시도해주세요");
            return;
        }
-       boolean checkseat = ticketDao.checkseat(seatNo,   movieNo);
+       boolean checkseat = ticketDao.checkseat(seatNo,  movieNo);
        if (!checkseat){
            System.out.println("없는 좌석입니다. 다시 시도해주세요");
            return;
