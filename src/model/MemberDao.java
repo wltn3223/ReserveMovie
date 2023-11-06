@@ -41,6 +41,34 @@ public class MemberDao {
         }
         return memberVOArrayList;
     }
+    public ArrayList<CopyMember> selectMemberMoneyList() throws Exception {
+        ArrayList<CopyMember> memberVOArrayList = new ArrayList<>();
+        Connection con = DBUtil.getConnection();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            String query = "Select * from COPY_MEMBER";
+            pstmt = con.prepareStatement(query);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                String id = rs.getString("MEMBER_ID");
+                int price = rs.getInt("CUMULATIVE_PRICE");
+                CopyMember copyMember = new CopyMember(id,price);
+                memberVOArrayList.add(copyMember);
+            }
+
+        } catch (Exception e) {
+            System.out.println("회원 누적 구매 목록 sql 에러발생");
+            return memberVOArrayList;
+        } finally {
+            con.close();
+            pstmt.close();
+            rs.close();
+
+
+        }
+        return memberVOArrayList;
+    }
 
     // id를 통해 멤버 찾음
     public MemberVO findMember(String memberId) throws Exception {
