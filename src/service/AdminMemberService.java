@@ -10,7 +10,8 @@ public class AdminMemberService {
     }
 
     public void printMemberMoneyList() throws Exception{
-        System.out.println("현재 회원 구매 목록");
+        System.out.println("회원들 이용 가격 조회 목록");
         memberDao.selectMemberMoneyList().forEach(System.out::println);
+        System.out.println();
     }
 }
