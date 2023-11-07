@@ -6,13 +6,18 @@ public class PlayingMovieVO {
     private String movieTitle;
     private int cinemaNo;
     private int playingMovieNo;
+    private  int remainseat;
     private String startTime;
     private String finishTime;
 
-    public PlayingMovieVO(String movieTitle, int cinemaNo, int playingMovieNo, String startTime, String finishTime) {
+    public int getRemainseat() {
+        return remainseat;
+    }
+
+    public PlayingMovieVO(String movieTitle, int cinemaNo, int totalseat, String startTime, String finishTime) {
         this.movieTitle = movieTitle;
         this.cinemaNo = cinemaNo;
-        this.playingMovieNo = playingMovieNo;
+        this.remainseat = totalseat;
         this.startTime = startTime;
         this.finishTime = finishTime;
     }
@@ -23,6 +28,15 @@ public class PlayingMovieVO {
         this.startTime = startTime;
         this.finishTime = finishTime;
     }
+    public PlayingMovieVO(String movieTitle, int cinemaNo, int remainseat, int playingMovieNo, String startTime, String finishTime) {
+        this.movieTitle = movieTitle;
+        this.cinemaNo = cinemaNo;
+        this.playingMovieNo = playingMovieNo;
+        this.startTime = startTime;
+        this.finishTime = finishTime;
+        this.remainseat = remainseat;
+    }
+
 
     public String getMovieTitle() {
         return movieTitle;
@@ -60,11 +74,12 @@ public class PlayingMovieVO {
 
     @Override
     public String toString() {
-        return
-                "영화제목='" + movieTitle + '\'' +
-                ", 상영관번호=" + cinemaNo +
-                ", 상영번호=" + playingMovieNo +
+        return "PM_no : " + playingMovieNo +
+                " 영화제목 :" + movieTitle + '\'' +
+                " 상영장소: " + cinemaNo + "관 " +
+                "현재 남은 좌석: " + remainseat +"석" +
                 ", 시작시간='" + startTime + '\'' +
                 ", 종료시간='" + finishTime + '\'';
+
     }
 }

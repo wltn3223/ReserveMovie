@@ -126,6 +126,9 @@ public class Main {
                                 }
                             }
                             break;
+                        case "4": AdminMemberService adminMemberService = new AdminMemberService();
+                            adminMemberService.printMemberMoneyList();
+                            break;
                     }
 
                 } catch (Exception e) {

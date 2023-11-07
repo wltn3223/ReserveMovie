@@ -26,6 +26,7 @@ public class Mainview {
         sb.append("\n1. 영화 추가, 조회, 수정, 제거");
         sb.append("\n2. 상영관 추가, 조회, 좌석 수정, 상영관 제거");
         sb.append("\n3. 상영 영화 추가, 조회, 수정, 제거");
+        sb.append("\n4 회원들 전체 구매 내역 조회");
         sb.append("\n0.종료.");
         System.out.println(sb);
         return br.readLine();

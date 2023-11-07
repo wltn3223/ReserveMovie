@@ -18,6 +18,7 @@ public class AdminPlayingMovieService {
         int cinemaNo;
         String startTime;
         String finishTime;
+        CinemaVO cinema = null;
 
 
         while (true) {
@@ -35,7 +36,8 @@ public class AdminPlayingMovieService {
             System.out.println("사용할 상영관 번호 입력");
             try {
                 cinemaNo = Integer.parseInt(br.readLine().trim());
-                if (adminCinemaService.findCinema(cinemaNo) == null) {
+                cinema = adminCinemaService.findCinema(cinemaNo);
+                if (cinema== null) {
                     System.out.println("없는 상영관 번호입니다. 다시 시도해주세요.");
                     continue;
                 }
@@ -55,7 +57,7 @@ public class AdminPlayingMovieService {
             }
             System.out.println("올바른 형식으로 입력해주세요.");
         }
-            PlayingMovieVO playingMovieVO = new PlayingMovieVO(movie,cinemaNo,startTime,finishTime);
+            PlayingMovieVO playingMovieVO = new PlayingMovieVO(movie,cinema.getCinemaNo(), cinema.getTotalSeats(),startTime,finishTime);
             if(playingMovieDao.checkOverlapTime(playingMovieVO)){
                 System.out.println("상영 시간이 중복됩니다. 다시시도해주세요");
                 return;
@@ -96,6 +98,7 @@ public class AdminPlayingMovieService {
         int cinemaNo;
         String startTime;
         String finishTime;
+        CinemaVO cinema = null;
         PlayingMovieVO playingMovie;
         System.out.println("수정할 상영 영화 번호 입력");
         try {
@@ -114,7 +117,8 @@ public class AdminPlayingMovieService {
             System.out.println("사용할 상영관 번호 입력");
             try {
                 cinemaNo = Integer.parseInt(br.readLine().trim());
-                if (adminCinemaService.findCinema(cinemaNo) == null) {
+                cinema = adminCinemaService.findCinema(cinemaNo);
+                if (cinema == null) {
                     System.out.println("없는 상영관 번호입니다. 다시 시도해주세요.");
                     continue;
                 }
@@ -134,7 +138,7 @@ public class AdminPlayingMovieService {
             }
             System.out.println("올바른 형식으로 입력해주세요.");
         }
-        PlayingMovieVO playingMovieVO = new PlayingMovieVO(playingMovie.getMovieTitle(), cinemaNo, playingMovie.getPlayingMovieNo(), startTime,finishTime);
+        PlayingMovieVO playingMovieVO = new PlayingMovieVO(playingMovie.getMovieTitle(), cinema.getCinemaNo(),cinema.getTotalSeats(), playingMovie.getPlayingMovieNo(), startTime,finishTime);
         if(playingMovieDao.checkOverlapTime(playingMovieVO)){
             System.out.println("상영 시간이 중복됩니다. 다시시도해주세요");
             return;

@@ -75,23 +75,27 @@ public class TicketDao {
         }
 
     }
-    public TicketVO findTicket(int ticketNo) throws  Exception{
+    public MyReserve findmyTicket(int ticketNo) throws  Exception{
         Connection con;
         con = DBUtil.getConnection();
         ResultSet rs = null;
         PreparedStatement pstmt = null;
-        TicketVO ticketVO = null;
+        MyReserve myReserve = null;
         try {
-            String query = "select * from ticket where TICKET_NO  = ?";
+            String query = "SELECT t.ticket_no,t.member_id,p.movie_title,t.seat_no,p.pm_start_time,p.pm_finish_time,t.ticket_price FROM ticket t, " +
+                    "playingmovie p where t.pm_no = p.pm_no and t.ticket_no = ?";
             pstmt = con.prepareStatement(query);
             pstmt.setInt(1,ticketNo);
             rs = pstmt.executeQuery();
             while (rs.next()){
-                String memberId = rs.getString("MEMBER_ID");
-                int cinemaNo = rs.getInt("TICKET_NO");
-                int pmNo = rs.getInt("PM_NO");
-                int seatNo =  rs.getInt("SEAT_NO");
-                ticketVO = new TicketVO(memberId,cinemaNo,pmNo,seatNo);
+                int cinemaNo = rs.getInt("t.TICKET_NO");
+                String memberId = rs.getString("t.MEMBER_ID");
+                String movieTitle = rs.getString("p.movie_title");
+                int seat = rs.getInt("t.seat_no");
+                String start = rs.getString("p.pm_start_time");
+                String finish = rs.getString("p.pm_finish_time");
+                int price =  rs.getInt("t.ticket_price");
+                myReserve = new MyReserve(cinemaNo,memberId,movieTitle,seat,start,finish,price);
             }
 
         }catch (SQLException e){
@@ -103,60 +107,34 @@ public class TicketDao {
             rs.close();
 
         }
-        return ticketVO;
+        return myReserve;
     }
-    public ArrayList<TicketVO> findTicketList(String memberid) throws  Exception{
+    public ArrayList<MyReserve> findTicketList(String memberid) throws  Exception{
         Connection con;
         con = DBUtil.getConnection();
         ResultSet rs = null;
-        ArrayList<TicketVO> arrayList = new ArrayList<>();
+        ArrayList<MyReserve> arrayList = new ArrayList<>();
         PreparedStatement pstmt = null;
         try {
-            String query = "select * from ticket where MEMBER_ID = ?";
+            String query = "SELECT t.ticket_no,t.member_id,p.movie_title,t.seat_no,p.pm_start_time,p.pm_finish_time,t.ticket_price FROM ticket t, playingmovie p where t.pm_no = p.pm_no and t.ticket_no \n" +
+                    "IN (SELECT a.ticket_no  from ticket a where a.member_id = ?)";
             pstmt = con.prepareStatement(query);
             pstmt.setString(1,memberid);
             rs = pstmt.executeQuery();
             while (rs.next()){
-                String memberId = rs.getString("MEMBER_ID");
                 int cinemaNo = rs.getInt("TICKET_NO");
-                int pmNo = rs.getInt("PM_NO");
-                int seatNo =  rs.getInt("SEAT_NO");
-                TicketVO ticketVO = new TicketVO(memberId,cinemaNo,pmNo,seatNo);
-                arrayList.add(ticketVO);
+                String memberId = rs.getString("MEMBER_ID");
+                String movieTitle = rs.getString("movie_title");
+                int seat = rs.getInt("seat_no");
+                String start = rs.getString("pm_start_time");
+                String finish = rs.getString("pm_finish_time");
+                int price =  rs.getInt("ticket_price");
+                MyReserve myReserve = new MyReserve(cinemaNo,memberId,movieTitle,seat,start,finish,price);
+                arrayList.add(myReserve);
             }
 
         }catch (SQLException e){
-            System.out.println("내 전체 예매 내역 조회 오류 발생");
-            return null;
-        }finally {
-            con.close();
-            pstmt.close();
-            rs.close();
-
-        }
-        return arrayList;
-    }
-    public ArrayList<TicketVO> findTicketList() throws  Exception{
-        Connection con;
-        con = DBUtil.getConnection();
-        ResultSet rs = null;
-        ArrayList<TicketVO> arrayList = new ArrayList<>();
-        PreparedStatement pstmt = null;
-        try {
-            String query = "select * from ticket";
-            pstmt = con.prepareStatement(query);
-            rs = pstmt.executeQuery();
-            while (rs.next()){
-                String memberId = rs.getString("MEMBER_ID");
-                int cinemaNo = rs.getInt("TICKET_NO");
-                int pmNo = rs.getInt("PM_NO");
-                int seatNo =  rs.getInt("SEAT_NO");
-                TicketVO ticketVO = new TicketVO(memberId,cinemaNo,pmNo,seatNo);
-                arrayList.add(ticketVO);
-            }
-
-        }catch (SQLException e){
-            System.out.println("전체 예매 내역 조회 오류 발생");
+            e.printStackTrace();
             return null;
         }finally {
             con.close();
@@ -194,7 +172,7 @@ public class TicketDao {
         }
         return count;
     }
-    public boolean checkseat(int seat, int cinemaNo) throws Exception{
+    public boolean checkseat(int seat, int pmno) throws Exception{
         Connection con;
         con = DBUtil.getConnection();
         ResultSet rs = null;
@@ -202,9 +180,9 @@ public class TicketDao {
         PreparedStatement pstmt = null;
         int count = 0;
         try {
-            String query = "select * from CINEMA where C_NO = ? ";
+            String query = "select * from CINEMA where C_NO = (SELECT C_NO FROM PLAYINGMOVIE WHERE PM_NO = ?) ";
             pstmt = con.prepareStatement(query);
-            pstmt.setInt(1,cinemaNo);
+            pstmt.setInt(1,pmno);
             rs = pstmt.executeQuery();
             while (rs.next()){
                 totalseat  = rs.getInt("C_TOTAL_SEAT");
@@ -253,7 +231,35 @@ public class TicketDao {
         }
         return seat;
     }
-    	
-    
 
+
+    public TicketVO findTicket(int ticketNo) throws  Exception{
+        Connection con;
+        con = DBUtil.getConnection();
+        ResultSet rs = null;
+        PreparedStatement pstmt = null;
+        TicketVO ticketVO = null;
+        try {
+            String query = "select * from ticket where ticket_no  = ?";
+            pstmt = con.prepareStatement(query);
+            pstmt.setInt(1,ticketNo);
+            rs = pstmt.executeQuery();
+            while (rs.next()){
+                String memberId = rs.getString("MEMBER_ID");
+                int seat = rs.getInt("SEAT_NO");
+                int price =  rs.getInt("ticket_price");
+                ticketVO = new TicketVO(memberId,ticketNo,seat,price);
+            }
+
+        }catch (SQLException e){
+            System.out.println("내 예매 내역 조회 오류 발생");
+            return null;
+        }finally {
+            con.close();
+            pstmt.close();
+            rs.close();
+
+        }
+        return ticketVO;
+    }
 }
